@@ -6,6 +6,9 @@ import Testimonials from "@/components/Testimonials";
 import Stats from "@/components/Stats";
 import Footer from "@/components/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
+import Newsletter from "@/components/Newsletter";
+import Partners from "@/components/Partners";
+import CallToAction from "@/components/CallToAction";
 
 const Index = () => {
   return (
@@ -16,10 +19,13 @@ const Index = () => {
       </div>
       <main>
         <Hero />
+        <Partners />
         <Stats />
         <FeaturedCourses />
         <Features />
+        <CallToAction />
         <Testimonials />
+        <Newsletter />
       </main>
       <Footer />
     </div>
