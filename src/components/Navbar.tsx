@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,8 +16,27 @@ import { cn } from "@/lib/utils";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const isActive = (path: string) => location.pathname === path;
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to sign out. Please try again.",
+      });
+    } else {
+      navigate("/login");
+      toast({
+        title: "Signed out",
+        description: "You have been successfully signed out.",
+      });
+    }
+  };
 
   const navigationItems = [
     {
@@ -114,11 +135,9 @@ const Navbar = () => {
                   Contact
                 </Button>
               </Link>
-              <Link to="/login">
-                <Button variant="default" className="text-sm">
-                  Login
-                </Button>
-              </Link>
+              <Button variant="default" className="text-sm" onClick={handleLogout}>
+                Logout
+              </Button>
             </div>
           </div>
 
@@ -170,12 +189,9 @@ const Navbar = () => {
             >
               Contact
             </Link>
-            <Link
-              to="/login"
-              className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md"
-            >
-              Login
-            </Link>
+            <Button variant="default" className="text-sm w-full" onClick={handleLogout}>
+              Logout
+            </Button>
           </div>
         )}
       </div>
