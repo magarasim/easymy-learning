@@ -25,10 +25,12 @@ const features = [
 
 const Features = () => {
   return (
-    <section id="features" className="py-20 bg-gradient-to-br from-blue-50 to-sky-50 dark:from-gray-900 dark:to-gray-800">
+    <section className="py-20 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-purple-900 dark:to-pink-900">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12 animate-fade-up">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Why Choose Us</h2>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            Why Choose Us
+          </h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Discover the advantages of learning with our platform
           </p>
@@ -37,13 +39,15 @@ const Features = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-fade-up"
+              className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-fade-up"
               style={{ animationDelay: `${index * 200}ms` }}
             >
-              <div className="w-12 h-12 flex items-center justify-center bg-primary/10 dark:bg-primary/20 rounded-lg mb-4">
+              <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg mb-4">
                 <feature.icon className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{feature.title}</h3>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+                {feature.title}
+              </h3>
               <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
             </div>
           ))}
