@@ -1,25 +1,35 @@
-import { Clock, Users, BookOpen, Trophy } from "lucide-react";
+import { Clock, Users, BookOpen, Trophy, Star, Globe } from "lucide-react";
 
 const features = [
   {
     title: "Learn at Your Own Pace",
-    description: "Access course content 24/7 and learn according to your schedule",
+    description: "Access course content 24/7 and learn according to your schedule. Our flexible learning platform adapts to your lifestyle.",
     icon: Clock,
   },
   {
     title: "Expert Instructors",
-    description: "Learn from industry professionals with years of experience",
+    description: "Learn from industry professionals with years of experience. Get insights from leaders in their respective fields.",
     icon: Users,
   },
   {
     title: "Interactive Learning",
-    description: "Engage with quizzes, projects, and hands-on exercises",
+    description: "Engage with quizzes, projects, and hands-on exercises. Practice what you learn through real-world applications.",
     icon: BookOpen,
   },
   {
     title: "Certified Courses",
-    description: "Earn recognized certificates upon course completion",
+    description: "Earn recognized certificates upon course completion. Add valuable credentials to your professional profile.",
     icon: Trophy,
+  },
+  {
+    title: "Global Community",
+    description: "Connect with learners worldwide. Share experiences and grow together in our diverse learning community.",
+    icon: Globe,
+  },
+  {
+    title: "Quality Content",
+    description: "Access carefully curated and regularly updated course materials. Stay current with industry trends and best practices.",
+    icon: Star,
   },
 ];
 
@@ -32,10 +42,10 @@ const Features = () => {
             Why Choose Us
           </h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Discover the advantages of learning with our platform
+            Discover the advantages of learning with our platform. We provide the tools and support you need to succeed.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <div
               key={index}

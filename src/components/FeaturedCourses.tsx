@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 const courses = [
   {
     title: "Web Development Fundamentals",
-    description: "Learn HTML, CSS, and JavaScript from scratch",
+    description: "Master HTML, CSS, and JavaScript. Build responsive websites and modern web applications from scratch.",
     category: "Programming",
     students: "1,234",
     duration: "8 weeks",
@@ -12,7 +12,7 @@ const courses = [
   },
   {
     title: "Digital Marketing Mastery",
-    description: "Master modern marketing strategies and tools",
+    description: "Learn SEO, social media marketing, and content strategy. Drive growth with data-driven marketing techniques.",
     category: "Marketing",
     students: "987",
     duration: "6 weeks",
@@ -20,7 +20,7 @@ const courses = [
   },
   {
     title: "Data Science Essentials",
-    description: "Introduction to data analysis and visualization",
+    description: "Explore data analysis, visualization, and machine learning. Make data-driven decisions with confidence.",
     category: "Data Science",
     students: "756",
     duration: "10 weeks",
@@ -37,7 +37,7 @@ const FeaturedCourses = () => {
             Featured Courses
           </h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Explore our most popular courses and start your learning journey today
+            Explore our most popular courses and start your learning journey today. Each course is designed to provide practical skills and knowledge.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

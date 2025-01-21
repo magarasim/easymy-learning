@@ -15,7 +15,8 @@ const Hero = () => {
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
               Access world-class education from anywhere. Learn at your own pace with expert-led courses
-              designed to boost your skills and career.
+              designed to boost your skills and career. Join thousands of successful learners who have
+              transformed their lives through our platform.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="text-lg px-8 group transition-all duration-300 hover:scale-105">
