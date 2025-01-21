@@ -13,6 +13,18 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 
+interface SubNavigationItem {
+  title: string;
+  path: string;
+}
+
+interface NavigationItem {
+  title: string;
+  path: string;
+  description?: string;
+  items?: SubNavigationItem[];
+}
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -52,12 +64,12 @@ const Navbar = () => {
     }
   };
 
-  const publicNavigationItems = [
+  const publicNavigationItems: NavigationItem[] = [
     { title: "About", path: "/about" },
     { title: "Contact", path: "/contact" },
   ];
 
-  const protectedNavigationItems = [
+  const protectedNavigationItems: NavigationItem[] = [
     {
       title: "Resources",
       path: "/resources",
