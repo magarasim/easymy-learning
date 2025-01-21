@@ -18,6 +18,20 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [session, setSession] = useState(null);
+
+  // Check for session on component mount
+  useState(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  });
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -30,7 +44,7 @@ const Navbar = () => {
         description: "Failed to sign out. Please try again.",
       });
     } else {
-      navigate("/login");
+      navigate("/");
       toast({
         title: "Signed out",
         description: "You have been successfully signed out.",
@@ -38,7 +52,12 @@ const Navbar = () => {
     }
   };
 
-  const navigationItems = [
+  const publicNavigationItems = [
+    { title: "About", path: "/about" },
+    { title: "Contact", path: "/contact" },
+  ];
+
+  const protectedNavigationItems = [
     {
       title: "Resources",
       path: "/resources",
@@ -61,6 +80,8 @@ const Navbar = () => {
     },
   ];
 
+  const navigationItems = session ? protectedNavigationItems : publicNavigationItems;
+
   return (
     <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 shadow-sm">
       <div className="container mx-auto px-4 py-4">
@@ -72,18 +93,6 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-6">
             <NavigationMenu>
               <NavigationMenuList>
-                <NavigationMenuItem>
-                  <Link
-                    to="/about"
-                    className={cn(
-                      "text-sm font-medium transition-colors hover:text-primary",
-                      isActive("/about") && "text-primary"
-                    )}
-                  >
-                    About
-                  </Link>
-                </NavigationMenuItem>
-
                 {navigationItems.map((item) => (
                   <NavigationMenuItem key={item.title}>
                     {item.items ? (
@@ -130,14 +139,24 @@ const Navbar = () => {
             </NavigationMenu>
 
             <div className="flex items-center space-x-4">
-              <Link to="/contact">
-                <Button variant="ghost" className="text-sm">
-                  Contact
-                </Button>
-              </Link>
-              <Button variant="default" className="text-sm" onClick={handleLogout}>
-                Logout
-              </Button>
+              {session ? (
+                <>
+                  <Link to="/dashboard">
+                    <Button variant="ghost" className="text-sm">
+                      Dashboard
+                    </Button>
+                  </Link>
+                  <Button variant="default" className="text-sm" onClick={handleLogout}>
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <Link to="/login">
+                  <Button variant="default" className="text-sm">
+                    Login
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
 
@@ -168,12 +187,6 @@ const Navbar = () => {
         {/* Mobile menu */}
         {isOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-4">
-            <Link
-              to="/about"
-              className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md"
-            >
-              About
-            </Link>
             {navigationItems.map((item) => (
               <Link
                 key={item.title}
@@ -183,15 +196,25 @@ const Navbar = () => {
                 {item.title}
               </Link>
             ))}
-            <Link
-              to="/contact"
-              className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md"
-            >
-              Contact
-            </Link>
-            <Button variant="default" className="text-sm w-full" onClick={handleLogout}>
-              Logout
-            </Button>
+            {session ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md"
+                >
+                  Dashboard
+                </Link>
+                <Button variant="default" className="text-sm w-full" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <Link to="/login">
+                <Button variant="default" className="text-sm w-full">
+                  Login
+                </Button>
+              </Link>
+            )}
           </div>
         )}
       </div>
