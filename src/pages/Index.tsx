@@ -9,6 +9,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import Newsletter from "@/components/Newsletter";
 import Partners from "@/components/Partners";
 import CallToAction from "@/components/CallToAction";
+import LogoShowcase from "@/components/LogoShowcase";
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
       </div>
       <main>
         <Hero />
+        <LogoShowcase />
         <Partners />
         <Stats />
         <FeaturedCourses />
