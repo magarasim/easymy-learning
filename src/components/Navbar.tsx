@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import NavbarMenu from "./NavbarMenu";
+import Logo from "./Logo";
 import { Menu } from "lucide-react";
 
 interface NavigationItem {
@@ -111,17 +112,7 @@ const Navbar = () => {
     <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 shadow-sm dark:bg-slate-900/80">
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <Link 
-            to="/" 
-            className="flex items-center space-x-2 text-2xl font-bold text-primary hover:text-primary/90 transition-colors"
-          >
-            <img 
-              src="/lovable-uploads/db562089-a0e0-499b-9925-e80d796c8480.png" 
-              alt="EasyMy Learning Logo" 
-              className="w-8 h-8"
-            />
-            <span>EasyMy Learning</span>
-          </Link>
+          <Logo />
 
           <div className="hidden md:flex items-center space-x-6">
             <NavigationMenu>
