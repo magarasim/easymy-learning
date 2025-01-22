@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,22 +7,18 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-
-interface SubNavigationItem {
-  title: string;
-  path: string;
-}
+import NavbarMenu from "./NavbarMenu";
+import { Menu } from "lucide-react";
 
 interface NavigationItem {
   title: string;
   path: string;
   description?: string;
-  items?: SubNavigationItem[];
+  items?: NavigationItem[];
 }
 
 const Navbar = () => {
@@ -32,8 +28,7 @@ const Navbar = () => {
   const { toast } = useToast();
   const [session, setSession] = useState(null);
 
-  // Check for session on component mount
-  useState(() => {
+  useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
@@ -43,9 +38,7 @@ const Navbar = () => {
     });
 
     return () => subscription.unsubscribe();
-  });
-
-  const isActive = (path: string) => location.pathname === path;
+  }, []);
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -65,41 +58,69 @@ const Navbar = () => {
   };
 
   const publicNavigationItems: NavigationItem[] = [
-    { title: "About", path: "/about" },
-    { title: "Contact", path: "/contact" },
+    { 
+      title: "About", 
+      path: "/about",
+      description: "Learn about our mission and vision for education"
+    },
+    { 
+      title: "Contact", 
+      path: "/contact",
+      description: "Get in touch with our support team"
+    },
   ];
 
   const protectedNavigationItems: NavigationItem[] = [
     {
       title: "Resources",
       path: "/resources",
-      description: "Access our comprehensive learning materials",
+      description: "Access comprehensive learning materials and study guides",
       items: [
-        { title: "Mathematics", path: "/resources/math" },
-        { title: "Science", path: "/resources/science" },
-        { title: "Technology", path: "/resources/technology" },
+        { 
+          title: "Mathematics", 
+          path: "/resources/math",
+          description: "Advanced mathematics courses and practice materials"
+        },
+        { 
+          title: "Science", 
+          path: "/resources/science",
+          description: "In-depth science topics and laboratory guides"
+        },
+        { 
+          title: "Technology", 
+          path: "/resources/technology",
+          description: "Latest technology trends and practical tutorials"
+        },
       ],
     },
     {
       title: "Community",
       path: "/community",
-      description: "Connect with fellow learners",
+      description: "Connect with fellow learners and share experiences",
     },
     {
       title: "Blog",
       path: "/blog",
-      description: "Read our latest articles and updates",
+      description: "Read our latest articles and educational insights",
     },
   ];
 
   const navigationItems = session ? protectedNavigationItems : publicNavigationItems;
 
   return (
-    <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 shadow-sm">
+    <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 shadow-sm dark:bg-slate-900/80">
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className="text-2xl font-bold text-primary hover:text-primary/90 transition-colors">
-            EasyMy Learning
+          <Link 
+            to="/" 
+            className="flex items-center space-x-2 text-2xl font-bold text-primary hover:text-primary/90 transition-colors"
+          >
+            <img 
+              src="/lovable-uploads/db562089-a0e0-499b-9925-e80d796c8480.png" 
+              alt="EasyMy Learning Logo" 
+              className="w-8 h-8"
+            />
+            <span>EasyMy Learning</span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-6">
@@ -112,34 +133,23 @@ const Navbar = () => {
                         <NavigationMenuTrigger
                           className={cn(
                             "text-sm font-medium transition-colors hover:text-primary",
-                            isActive(item.path) && "text-primary"
+                            location.pathname === item.path && "text-primary"
                           )}
                         >
                           {item.title}
                         </NavigationMenuTrigger>
                         <NavigationMenuContent>
-                          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                            {item.items.map((subItem) => (
-                              <li key={subItem.title}>
-                                <NavigationMenuLink asChild>
-                                  <Link
-                                    to={subItem.path}
-                                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                  >
-                                    <div className="text-sm font-medium leading-none">{subItem.title}</div>
-                                  </Link>
-                                </NavigationMenuLink>
-                              </li>
-                            ))}
-                          </ul>
+                          <div className="w-[400px] p-4">
+                            <NavbarMenu items={item.items} />
+                          </div>
                         </NavigationMenuContent>
                       </>
                     ) : (
                       <Link
                         to={item.path}
                         className={cn(
-                          "text-sm font-medium transition-colors hover:text-primary",
-                          isActive(item.path) && "text-primary"
+                          "text-sm font-medium transition-colors hover:text-primary flex items-center px-4 py-2",
+                          location.pathname === item.path && "text-primary"
                         )}
                       >
                         {item.title}
@@ -173,55 +183,33 @@ const Navbar = () => {
           </div>
 
           <Button
-            variant="outline"
+            variant="ghost"
             size="icon"
             className="md:hidden"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
+            <Menu className="w-5 h-5" />
           </Button>
         </div>
 
         {/* Mobile menu */}
         {isOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-4">
-            {navigationItems.map((item) => (
-              <Link
-                key={item.title}
-                to={item.path}
-                className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md"
-              >
-                {item.title}
-              </Link>
-            ))}
+          <div className="md:hidden mt-4 pb-4 animate-fade-in">
+            <NavbarMenu items={navigationItems} mobile />
             {session ? (
               <>
                 <Link
                   to="/dashboard"
-                  className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md"
+                  className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md mt-4"
                 >
                   Dashboard
                 </Link>
-                <Button variant="default" className="text-sm w-full" onClick={handleLogout}>
+                <Button variant="default" className="text-sm w-full mt-2" onClick={handleLogout}>
                   Logout
                 </Button>
               </>
             ) : (
-              <Link to="/login">
+              <Link to="/login" className="block mt-4">
                 <Button variant="default" className="text-sm w-full">
                   Login
                 </Button>
