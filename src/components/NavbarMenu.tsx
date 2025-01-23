@@ -2,19 +2,19 @@ import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
-interface NavItem {
-  title: string;
-  path: string;
-  description: string;
-  icon: React.ReactNode;
-  items?: NavSubItem[];
-}
-
 interface NavSubItem {
   title: string;
   path: string;
   description: string;
   icon: React.ReactNode;
+}
+
+interface NavItem {
+  title: string;
+  path: string;
+  description: string;
+  icon: React.ReactNode;
+  items?: NavSubItem[];  // Making items optional with the ? operator
 }
 
 interface NavbarMenuProps {

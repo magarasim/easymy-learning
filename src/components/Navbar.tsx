@@ -34,19 +34,19 @@ import {
   Instagram
 } from "lucide-react";
 
-interface NavItem {
-  title: string;
-  path: string;
-  description: string;
-  icon: React.ReactNode;
-  items?: NavSubItem[];
-}
-
 interface NavSubItem {
   title: string;
   path: string;
   description: string;
   icon: React.ReactNode;
+}
+
+interface NavItem {
+  title: string;
+  path: string;
+  description: string;
+  icon: React.ReactNode;
+  items?: NavSubItem[];  // Making items optional with the ? operator
 }
 
 const Navbar = () => {
