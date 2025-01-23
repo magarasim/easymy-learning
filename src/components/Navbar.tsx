@@ -12,15 +12,20 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import NavbarMenu from "./NavbarMenu";
+import NavDescription from "./NavDescription";
 import Logo from "./Logo";
-import { Menu } from "lucide-react";
-
-interface NavigationItem {
-  title: string;
-  path: string;
-  description?: string;
-  items?: NavigationItem[];
-}
+import { 
+  Menu, 
+  Code2, 
+  Database, 
+  Users, 
+  BookOpen, 
+  MessageSquare,
+  Phone,
+  GraduationCap,
+  FileSpreadsheet,
+  Binary
+} from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,51 +63,59 @@ const Navbar = () => {
     }
   };
 
-  const publicNavigationItems: NavigationItem[] = [
+  const publicNavigationItems = [
     { 
-      title: "About", 
+      title: "About",
       path: "/about",
-      description: "Learn about our mission and vision for education"
+      description: "Discover our mission to empower developers worldwide",
+      icon: <Users className="w-4 h-4 text-blue-500" />
     },
     { 
-      title: "Contact", 
+      title: "Contact",
       path: "/contact",
-      description: "Get in touch with our support team"
+      description: "Get in touch with our expert support team",
+      icon: <Phone className="w-4 h-4 text-green-500" />
     },
   ];
 
-  const protectedNavigationItems: NavigationItem[] = [
+  const protectedNavigationItems = [
     {
       title: "Resources",
       path: "/resources",
-      description: "Access comprehensive learning materials and study guides",
+      description: "Access comprehensive learning materials and guides",
+      icon: <BookOpen className="w-4 h-4 text-purple-500" />,
       items: [
         { 
-          title: "Mathematics", 
-          path: "/resources/math",
-          description: "Advanced mathematics courses and practice materials"
+          title: "Frontend Development",
+          path: "/resources/frontend",
+          description: "Master modern web development with React and TypeScript",
+          icon: <Code2 className="w-4 h-4 text-blue-500" />
         },
         { 
-          title: "Science", 
-          path: "/resources/science",
-          description: "In-depth science topics and laboratory guides"
+          title: "Backend Development",
+          path: "/resources/backend",
+          description: "Build robust server-side applications and APIs",
+          icon: <Database className="w-4 h-4 text-green-500" />
         },
         { 
-          title: "Technology", 
-          path: "/resources/technology",
-          description: "Latest technology trends and practical tutorials"
+          title: "Data Science",
+          path: "/resources/data-science",
+          description: "Learn data analysis and machine learning",
+          icon: <Binary className="w-4 h-4 text-purple-500" />
         },
       ],
     },
     {
       title: "Community",
       path: "/community",
-      description: "Connect with fellow learners and share experiences",
+      description: "Connect and collaborate with fellow developers",
+      icon: <MessageSquare className="w-4 h-4 text-orange-500" />
     },
     {
-      title: "Blog",
+      title: "Course Catalog",
       path: "/blog",
-      description: "Read our latest articles and educational insights",
+      description: "Browse our extensive collection of courses",
+      icon: <GraduationCap className="w-4 h-4 text-blue-500" />
     },
   ];
 
@@ -123,15 +136,37 @@ const Navbar = () => {
                       <>
                         <NavigationMenuTrigger
                           className={cn(
-                            "text-sm font-medium transition-colors hover:text-primary",
+                            "text-sm font-medium transition-colors hover:text-primary group",
                             location.pathname === item.path && "text-primary"
                           )}
                         >
-                          {item.title}
+                          <span className="flex items-center space-x-2">
+                            {item.icon}
+                            <span>{item.title}</span>
+                          </span>
                         </NavigationMenuTrigger>
                         <NavigationMenuContent>
-                          <div className="w-[400px] p-4">
-                            <NavbarMenu items={item.items} />
+                          <div className="w-[400px] p-4 space-y-4">
+                            <NavDescription
+                              title={item.title}
+                              description={item.description}
+                              icon={item.icon}
+                            />
+                            <div className="space-y-2">
+                              {item.items.map((subItem) => (
+                                <Link
+                                  key={subItem.title}
+                                  to={subItem.path}
+                                  className="block p-3 space-y-1 rounded-md hover:bg-accent"
+                                >
+                                  <NavDescription
+                                    title={subItem.title}
+                                    description={subItem.description}
+                                    icon={subItem.icon}
+                                  />
+                                </Link>
+                              ))}
+                            </div>
                           </div>
                         </NavigationMenuContent>
                       </>
@@ -139,11 +174,12 @@ const Navbar = () => {
                       <Link
                         to={item.path}
                         className={cn(
-                          "text-sm font-medium transition-colors hover:text-primary flex items-center px-4 py-2",
+                          "flex items-center space-x-2 px-4 py-2 text-sm font-medium transition-colors hover:text-primary",
                           location.pathname === item.path && "text-primary"
                         )}
                       >
-                        {item.title}
+                        {item.icon}
+                        <span>{item.title}</span>
                       </Link>
                     )}
                   </NavigationMenuItem>
@@ -183,7 +219,6 @@ const Navbar = () => {
           </Button>
         </div>
 
-        {/* Mobile menu */}
         {isOpen && (
           <div className="md:hidden mt-4 pb-4 animate-fade-in">
             <NavbarMenu items={navigationItems} mobile />
