@@ -2,40 +2,40 @@ import { Award, BookOpen, Laptop, Gift, Users, Trophy } from "lucide-react";
 
 const features = [
   {
-    title: "Core Benefits",
-    description: "Video lectures, online live classes, recorded videos, and comprehensive study materials available on our platform.",
+    title: "Frontend Development",
+    description: "Master modern frontend technologies including React, TypeScript, and responsive design principles. Build interactive user interfaces with modern tooling.",
     icon: BookOpen,
-    image: "/lovable-uploads/973600f4-7cb9-4788-bd25-b4cd5fffa9b3.png"
+    image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7"
   },
   {
-    title: "Awards and Cash Prizes",
-    description: "Weekly tests with exciting cash prizes up to Rs. 5k, grand laptop award worth Rs. 50,000/-, and daily surprise prizes.",
+    title: "Backend Development",
+    description: "Learn server-side programming, database management, and API development. Build robust and scalable backend systems.",
     icon: Award,
-    image: "/lovable-uploads/e7ddf5c0-3c2f-42d4-891c-744eb8ac2316.png"
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
   },
   {
-    title: "Additional Benefits",
-    description: "Free access to premium tools including ChatGPT, Canva, Kinemaster, and Microsoft Office suite worth Rs. 10,000/-",
+    title: "AI Integration",
+    description: "Implement artificial intelligence solutions and machine learning models in your applications.",
     icon: Gift,
-    image: "/lovable-uploads/85722318-f9f5-4283-a33a-6d10a88d8380.png"
+    image: "/lovable-uploads/177a7430-45cd-48af-a5b3-4530819e536b.png"
   },
   {
-    title: "Free Courses",
-    description: "Access to 11th & 12th notes, pre-medical & engineering guidance, computer masterclass, and programming courses.",
+    title: "Full Stack Development",
+    description: "Combine frontend and backend skills to build complete web applications from start to finish.",
     icon: Laptop,
-    image: "/lovable-uploads/978b14a0-4204-44d9-a5b5-5ebfebce37c5.png"
+    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"
   },
   {
-    title: "Scholarship Support",
-    description: "Free assistance with various scholarship applications including Metro, MGSS, GJSS, and embassy scholarships.",
+    title: "Community Support",
+    description: "Join our active community of developers, share knowledge, and grow together through collaborative learning.",
     icon: Users,
-    image: "/lovable-uploads/88959ca4-7d53-4d1a-8f3d-16a3602420fe.png"
+    image: "/lovable-uploads/db562089-a0e0-499b-9925-e80d796c8480.png"
   },
   {
-    title: "Workshops & Internships",
-    description: "Part-time internships for top performers, AI workshops, and specialized training with certificates.",
+    title: "Career Growth",
+    description: "Get certified, build your portfolio, and advance your career with our comprehensive development programs.",
     icon: Trophy,
-    image: "/lovable-uploads/c6c35c7b-9a0c-48d6-80ed-d8b7f02c07f1.png"
+    image: "/lovable-uploads/978b14a0-4204-44d9-a5b5-5ebfebce37c5.png"
   }
 ];
 
@@ -45,10 +45,10 @@ const Features = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4 text-blue-900 dark:text-white">
-            Program Benefits
+            Development Process & Features
           </h2>
           <p className="text-blue-700 dark:text-blue-200 max-w-2xl mx-auto">
-            Discover all the advantages of joining our comprehensive learning program
+            Explore our comprehensive development tracks and learning features
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -64,6 +64,7 @@ const Features = () => {
                   alt={feature.title}
                   className="w-full h-48 object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 flex items-center justify-center bg-blue-100 dark:bg-blue-700 rounded-lg">
