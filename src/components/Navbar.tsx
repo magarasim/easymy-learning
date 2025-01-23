@@ -24,8 +24,30 @@ import {
   Phone,
   GraduationCap,
   FileSpreadsheet,
-  Binary
+  Binary,
+  MapPin,
+  Mail,
+  Globe,
+  Facebook,
+  Linkedin,
+  Youtube,
+  Instagram
 } from "lucide-react";
+
+interface NavItem {
+  title: string;
+  path: string;
+  description: string;
+  icon: React.ReactNode;
+  items?: NavSubItem[];
+}
+
+interface NavSubItem {
+  title: string;
+  path: string;
+  description: string;
+  icon: React.ReactNode;
+}
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,22 +85,42 @@ const Navbar = () => {
     }
   };
 
-  const publicNavigationItems = [
+  const publicNavigationItems: NavItem[] = [
     { 
       title: "About",
       path: "/about",
-      description: "Discover our mission to empower developers worldwide",
+      description: "Learn about our mission and vision for education",
       icon: <Users className="w-4 h-4 text-blue-500" />
     },
     { 
       title: "Contact",
       path: "/contact",
       description: "Get in touch with our expert support team",
-      icon: <Phone className="w-4 h-4 text-green-500" />
+      icon: <Phone className="w-4 h-4 text-green-500" />,
+      items: [
+        {
+          title: "Visit Us",
+          path: "/contact#location",
+          description: "123 Learning Street, Education City, ED 12345",
+          icon: <MapPin className="w-4 h-4 text-red-500" />
+        },
+        {
+          title: "Email Us",
+          path: "/contact#email",
+          description: "contact@easymylearning.com",
+          icon: <Mail className="w-4 h-4 text-blue-500" />
+        },
+        {
+          title: "Social Media",
+          path: "/contact#social",
+          description: "Connect with us on social platforms",
+          icon: <Globe className="w-4 h-4 text-purple-500" />
+        }
+      ]
     },
   ];
 
-  const protectedNavigationItems = [
+  const protectedNavigationItems: NavItem[] = [
     {
       title: "Resources",
       path: "/resources",
@@ -120,6 +162,13 @@ const Navbar = () => {
   ];
 
   const navigationItems = session ? protectedNavigationItems : publicNavigationItems;
+
+  const socialLinks = [
+    { icon: <Facebook className="w-5 h-5" />, url: "https://facebook.com/easymylearning", label: "Facebook" },
+    { icon: <Instagram className="w-5 h-5" />, url: "https://instagram.com/easymylearning", label: "Instagram" },
+    { icon: <Linkedin className="w-5 h-5" />, url: "https://linkedin.com/company/easymylearning", label: "LinkedIn" },
+    { icon: <Youtube className="w-5 h-5" />, url: "https://youtube.com/@easymylearning", label: "YouTube" },
+  ];
 
   return (
     <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 shadow-sm dark:bg-slate-900/80">
@@ -207,6 +256,21 @@ const Navbar = () => {
                 </Link>
               )}
             </div>
+
+            <div className="hidden lg:flex items-center space-x-2">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 hover:text-primary transition-colors"
+                  aria-label={link.label}
+                >
+                  {link.icon}
+                </a>
+              ))}
+            </div>
           </div>
 
           <Button
@@ -241,6 +305,20 @@ const Navbar = () => {
                 </Button>
               </Link>
             )}
+            <div className="flex justify-center space-x-4 mt-4">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 hover:text-primary transition-colors"
+                  aria-label={link.label}
+                >
+                  {link.icon}
+                </a>
+              ))}
+            </div>
           </div>
         )}
       </div>
