@@ -1,37 +1,85 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Users, Clock, BookOpen } from "lucide-react";
+import { ExternalLink, Users, Clock, BookOpen, Code2, Database, Binary } from "lucide-react";
 
 const courses = [
   {
     title: "Frontend Development Mastery",
-    description: "Master modern frontend development with React, TypeScript, and Tailwind CSS. Build responsive and interactive web applications.",
+    description: "Master modern frontend development with HTML, CSS, JavaScript, React, and TypeScript. Build responsive and interactive web applications with industry best practices.",
     category: "Frontend",
     students: "2,341",
     duration: "12 weeks",
     level: "Intermediate",
-    topics: ["React", "TypeScript", "Tailwind CSS", "State Management", "API Integration"],
+    topics: [
+      "HTML5 & Modern CSS",
+      "JavaScript ES6+",
+      "TypeScript Fundamentals",
+      "React & Hooks",
+      "State Management",
+      "Responsive Design",
+      "API Integration"
+    ],
+    modules: [
+      "Module 1: HTML5 & CSS3 Fundamentals",
+      "Module 2: JavaScript Core Concepts",
+      "Module 3: TypeScript & Type Safety",
+      "Module 4: React Components & Props",
+      "Module 5: State & Effects",
+      "Module 6: API Integration & Data Fetching"
+    ],
     image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7"
   },
   {
     title: "Backend Development Professional",
-    description: "Learn backend development with Node.js, Express, and PostgreSQL. Build scalable and secure REST APIs.",
+    description: "Learn backend development with Python, Node.js, Express, and PostgreSQL. Build scalable and secure REST APIs with modern backend technologies.",
     category: "Backend",
     students: "1,876",
     duration: "14 weeks",
     level: "Advanced",
-    topics: ["Node.js", "Express", "PostgreSQL", "API Design", "Authentication"],
+    topics: [
+      "Python Programming",
+      "Node.js & Express",
+      "PostgreSQL",
+      "API Design",
+      "Authentication",
+      "Security",
+      "Performance"
+    ],
+    modules: [
+      "Module 1: Python Fundamentals",
+      "Module 2: Database Design",
+      "Module 3: REST API Development",
+      "Module 4: Authentication & Security",
+      "Module 5: Performance Optimization",
+      "Module 6: Deployment & Scaling"
+    ],
     image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
   },
   {
     title: "Full Stack Development Journey",
-    description: "Become a full-stack developer. Master both frontend and backend technologies to build complete web applications.",
+    description: "Become a full-stack developer mastering both frontend and backend technologies. Learn to build complete web applications from start to finish.",
     category: "Full Stack",
     students: "1,543",
     duration: "16 weeks",
     level: "Advanced",
-    topics: ["React", "Node.js", "Database Design", "DevOps", "Testing"],
+    topics: [
+      "Frontend Development",
+      "Backend Development",
+      "Database Management",
+      "API Integration",
+      "DevOps Basics",
+      "Testing",
+      "Deployment"
+    ],
+    modules: [
+      "Module 1: Web Development Fundamentals",
+      "Module 2: Frontend Technologies",
+      "Module 3: Backend Development",
+      "Module 4: Database Integration",
+      "Module 5: Full Stack Projects",
+      "Module 6: Deployment & DevOps"
+    ],
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085"
   }
 ];
@@ -93,6 +141,18 @@ const FeaturedCourses = () => {
               </CardHeader>
               
               <CardContent className="space-y-4">
+                <div>
+                  <h4 className="font-semibold mb-2 text-sm text-gray-700 dark:text-gray-200">Course Modules</h4>
+                  <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-300">
+                    {course.modules.map((module, i) => (
+                      <li key={i} className="flex items-center">
+                        <Code2 className="w-4 h-4 mr-2 text-primary" />
+                        {module}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
                 <div className="flex flex-wrap gap-2">
                   {course.topics.map((topic, i) => (
                     <Badge key={i} variant="outline" className="bg-gray-50 dark:bg-gray-700">
@@ -112,7 +172,7 @@ const FeaturedCourses = () => {
                   </div>
                   <div className="flex items-center">
                     <BookOpen className="w-4 h-4 mr-2" />
-                    {course.topics.length} modules
+                    {course.modules.length} modules
                   </div>
                 </div>
               </CardContent>
