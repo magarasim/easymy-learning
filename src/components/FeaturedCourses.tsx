@@ -1,90 +1,119 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ExternalLink, Users, Clock, BookOpen } from "lucide-react";
 
 const courses = [
   {
-    title: "Web Development Fundamentals",
-    description: "Master HTML, CSS, and JavaScript. Build responsive websites and modern web applications from scratch.",
-    category: "Programming",
-    students: "1,234",
-    duration: "8 weeks",
+    title: "Frontend Development Mastery",
+    description: "Master modern frontend development with React, TypeScript, and Tailwind CSS. Build responsive and interactive web applications.",
+    category: "Frontend",
+    students: "2,341",
+    duration: "12 weeks",
+    level: "Intermediate",
+    topics: ["React", "TypeScript", "Tailwind CSS", "State Management", "API Integration"],
+    image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7"
+  },
+  {
+    title: "Backend Development Professional",
+    description: "Learn backend development with Node.js, Express, and PostgreSQL. Build scalable and secure REST APIs.",
+    category: "Backend",
+    students: "1,876",
+    duration: "14 weeks",
+    level: "Advanced",
+    topics: ["Node.js", "Express", "PostgreSQL", "API Design", "Authentication"],
     image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
   },
   {
-    title: "Digital Marketing Mastery",
-    description: "Learn SEO, social media marketing, and content strategy. Drive growth with data-driven marketing techniques.",
-    category: "Marketing",
-    students: "987",
-    duration: "6 weeks",
-    image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7"
-  },
-  {
-    title: "Data Science Essentials",
-    description: "Explore data analysis, visualization, and machine learning. Make data-driven decisions with confidence.",
-    category: "Data Science",
-    students: "756",
-    duration: "10 weeks",
-    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"
-  },
+    title: "Full Stack Development Journey",
+    description: "Become a full-stack developer. Master both frontend and backend technologies to build complete web applications.",
+    category: "Full Stack",
+    students: "1,543",
+    duration: "16 weeks",
+    level: "Advanced",
+    topics: ["React", "Node.js", "Database Design", "DevOps", "Testing"],
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+  }
 ];
 
 const FeaturedCourses = () => {
   return (
-    <section id="courses" className="py-20 bg-gradient-to-br from-white via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <section className="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Featured Courses
+        <div className="text-center mb-12 animate-fade-up">
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Featured Development Courses
           </h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Explore our most popular courses and start your learning journey today. Each course is designed to provide practical skills and knowledge.
+            Take your development skills to the next level with our comprehensive courses.
+            Learn from industry experts and build real-world projects.
           </p>
         </div>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {courses.map((course, index) => (
             <Card 
               key={index} 
-              className="group hover:shadow-lg transition-shadow duration-300 overflow-hidden bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm"
+              className="group hover:shadow-xl transition-all duration-300 overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm animate-fade-up"
+              style={{ animationDelay: `${index * 150}ms` }}
             >
-              <div className="aspect-video overflow-hidden">
+              <div className="aspect-video overflow-hidden relative">
                 <img
                   src={course.image}
                   alt={course.title}
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  <Button variant="secondary" className="w-full">
+                    Learn More <ExternalLink className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
               </div>
+              
               <CardHeader>
                 <div className="flex justify-between items-start mb-2">
-                  <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
+                  <Badge 
+                    variant="secondary" 
+                    className={`
+                      ${course.category === 'Frontend' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-100' : 
+                        course.category === 'Backend' ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-100' :
+                        'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-100'}
+                    `}
+                  >
                     {course.category}
                   </Badge>
-                  <Badge variant="outline">{course.duration}</Badge>
+                  <Badge variant="outline">{course.level}</Badge>
                 </div>
                 <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors">
                   {course.title}
                 </CardTitle>
-                <CardDescription>{course.description}</CardDescription>
+                <CardDescription className="text-gray-600 dark:text-gray-300">
+                  {course.description}
+                </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="mr-2"
-                  >
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                  </svg>
-                  {course.students} students enrolled
+              
+              <CardContent className="space-y-4">
+                <div className="flex flex-wrap gap-2">
+                  {course.topics.map((topic, i) => (
+                    <Badge key={i} variant="outline" className="bg-gray-50 dark:bg-gray-700">
+                      {topic}
+                    </Badge>
+                  ))}
+                </div>
+                
+                <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 pt-4 border-t">
+                  <div className="flex items-center">
+                    <Users className="w-4 h-4 mr-2" />
+                    {course.students} enrolled
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="w-4 h-4 mr-2" />
+                    {course.duration}
+                  </div>
+                  <div className="flex items-center">
+                    <BookOpen className="w-4 h-4 mr-2" />
+                    {course.topics.length} modules
+                  </div>
                 </div>
               </CardContent>
             </Card>
