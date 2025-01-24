@@ -1,128 +1,62 @@
-import { Building, Star, ToggleLeft, ToggleRight } from "lucide-react";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { Building } from "lucide-react";
+import { motion } from "framer-motion";
 
 const partners = [
   { 
     name: "Esewa", 
     logo: "/lovable-uploads/973600f4-7cb9-4788-bd25-b4cd5fffa9b3.png",
-    description: "Leading digital payment platform in Nepal, offering secure and convenient payment solutions",
-    active: true
   },
   { 
     name: "Khalti", 
     logo: "/lovable-uploads/e7ddf5c0-3c2f-42d4-891c-744eb8ac2316.png",
-    description: "Innovative digital wallet and payment gateway transforming financial transactions in Nepal",
-    active: true
   },
   { 
     name: "EasyMy Learning", 
     logo: "/lovable-uploads/db562089-a0e0-499b-9925-e80d796c8480.png",
-    description: "Premier education platform providing comprehensive learning solutions",
-    active: true
   },
   { 
     name: "Google", 
     logo: "/lovable-uploads/85722318-f9f5-4283-a33a-6d10a88d8380.png",
-    description: "Global technology leader pioneering innovations in search, cloud computing, and AI",
-    active: true
   },
   { 
     name: "Microsoft", 
     logo: "/lovable-uploads/978b14a0-4204-44d9-a5b5-5ebfebce37c5.png",
-    description: "World-leading provider of software, cloud services, and enterprise solutions",
-    active: true
   }
 ];
 
 const Partners = () => {
-  const [activePartners, setActivePartners] = useState(partners);
-
-  const togglePartner = (index: number) => {
-    setActivePartners(prev => prev.map((partner, i) => 
-      i === index ? { ...partner, active: !partner.active } : partner
-    ));
-  };
-
   return (
-    <section className="py-16 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900 dark:to-blue-800">
+    <section className="py-16 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Building className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-            <h2 className="text-3xl font-bold text-blue-900 dark:text-white">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
               Trusted by Industry Leaders
             </h2>
           </div>
-          <p className="text-lg text-blue-700 dark:text-blue-200 max-w-2xl mx-auto">
-            Join thousands of students learning with support from top companies
-          </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {activePartners.map((partner, index) => (
-            <div
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center justify-items-center">
+          {partners.map((partner, index) => (
+            <motion.div
               key={index}
-              className={cn(
-                "bg-white/80 dark:bg-blue-800/50 backdrop-blur-sm p-6 rounded-lg shadow-lg transition-all duration-300 animate-fade-up hover:shadow-xl transform hover:-translate-y-1",
-                partner.active ? "opacity-100" : "opacity-50"
-              )}
-              style={{ animationDelay: `${index * 100}ms` }}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.1,
+                ease: [0, 0.71, 0.2, 1.01]
+              }}
+              className="w-32 h-32 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-16 h-16 flex items-center justify-center bg-white rounded-lg shadow-md transition-transform hover:scale-105">
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    className="w-12 h-12 object-contain"
-                  />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-blue-900 dark:text-white">
-                    {partner.name}
-                  </h3>
-                  <div className="flex items-center gap-1 text-yellow-500">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                </div>
-                <button
-                  onClick={() => togglePartner(index)}
-                  className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
-                >
-                  {partner.active ? (
-                    <ToggleRight className="w-8 h-8" />
-                  ) : (
-                    <ToggleLeft className="w-8 h-8" />
-                  )}
-                </button>
-              </div>
-              <p className="text-blue-700 dark:text-blue-200">{partner.description}</p>
-            </div>
+              <img
+                src={partner.logo}
+                alt={partner.name}
+                className="w-full h-full object-contain"
+              />
+            </motion.div>
           ))}
-        </div>
-
-        <div className="mt-16 text-center">
-          <p className="text-blue-900 dark:text-white font-medium text-lg">
-            Join over 10,000+ students already learning with us
-          </p>
-          <div className="flex justify-center gap-2 mt-4">
-            <div className="flex -space-x-4">
-              {[...Array(5)].map((_, i) => (
-                <div
-                  key={i}
-                  className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-white dark:border-blue-900 flex items-center justify-center text-white font-semibold text-sm animate-fade-in"
-                  style={{ animationDelay: `${i * 100}ms` }}
-                >
-                  {String.fromCharCode(65 + i)}
-                </div>
-              ))}
-            </div>
-            <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-800 border-2 border-white dark:border-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-200 font-semibold text-sm">
-              +5k
-            </div>
-          </div>
         </div>
       </div>
     </section>

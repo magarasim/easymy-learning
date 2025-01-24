@@ -9,18 +9,16 @@ import ThemeToggle from "@/components/ThemeToggle";
 import Newsletter from "@/components/Newsletter";
 import Partners from "@/components/Partners";
 import CallToAction from "@/components/CallToAction";
-import LogoShowcase from "@/components/LogoShowcase";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed bottom-4 right-4 z-50">
         <ThemeToggle />
       </div>
       <main>
         <Hero />
-        <LogoShowcase />
         <Partners />
         <Stats />
         <FeaturedCourses />
