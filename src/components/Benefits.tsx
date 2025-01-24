@@ -1,97 +1,111 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { 
+  GraduationCap, 
+  Users, 
+  Clock, 
+  Globe,
+  Award,
+  BookOpen
+} from "lucide-react";
 
-const benefitsData = [
+const benefits = [
   {
-    id: 1,
-    title: "Core Benefits",
-    image: "/lovable-uploads/7dae9b03-684c-41e4-bbc0-c8657dad5097.png",
-    description: "Video lectures, MCQ practice, and comprehensive study materials"
+    icon: GraduationCap,
+    title: "Expert Instructors",
+    description: "Learn from industry professionals with years of experience"
   },
   {
-    id: 2,
-    title: "Awards and Cash Prizes",
-    image: "/lovable-uploads/f3bff778-3423-4584-9e8b-6083cd14ba42.png",
-    description: "Weekly tests with exciting cash prizes and grand awards"
+    icon: Users,
+    title: "Community Support",
+    description: "Join a vibrant community of learners and mentors"
   },
   {
-    id: 3,
-    title: "Additional Benefits",
-    image: "/lovable-uploads/58672377-a9af-4b6c-b08e-4a3eb119fc12.png",
-    description: "Free access to premium tools and lifetime community membership"
+    icon: Clock,
+    title: "Flexible Learning",
+    description: "Study at your own pace with lifetime access to courses"
   },
   {
-    id: 4,
-    title: "Free Courses",
-    image: "/lovable-uploads/b8a6f831-1cd0-4691-b270-1375b0a4158c.png",
-    description: "Access to programming, computer, and English courses"
+    icon: Globe,
+    title: "Global Access",
+    description: "Access your courses from anywhere in the world"
   },
   {
-    id: 5,
-    title: "Additional Support",
-    image: "/lovable-uploads/28e4901e-6806-41f5-8bf6-2479fe7118cc.png",
-    description: "Scholarship assistance and form filling support"
+    icon: Award,
+    title: "Certification",
+    description: "Earn recognized certificates upon course completion"
+  },
+  {
+    icon: BookOpen,
+    title: "Updated Content",
+    description: "Stay current with regularly updated course materials"
   }
 ];
 
 const Benefits = () => {
-  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
 
   return (
-    <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900 dark:to-indigo-900">
+    <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-blue-900">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
-          Comprehensive Benefits Package
-        </h2>
-        
-        <div className="space-y-6 max-w-4xl mx-auto">
-          {benefitsData.map((benefit) => (
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Why Choose Us?
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Discover the advantages of learning with our platform
+          </p>
+        </motion.div>
+
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {benefits.map((benefit, index) => (
             <motion.div
-              key={benefit.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden"
+              key={index}
+              variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              <div 
-                className="p-6 cursor-pointer"
-                onClick={() => setExpandedId(expandedId === benefit.id ? null : benefit.id)}
-              >
-                <div className="flex justify-between items-center">
+              <div className="flex items-center space-x-4">
+                <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                  <benefit.icon className="w-6 h-6 text-blue-600 dark:text-blue-300" />
+                </div>
+                <div>
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                     {benefit.title}
                   </h3>
-                  <Button variant="ghost" size="icon">
-                    {expandedId === benefit.id ? (
-                      <ChevronUp className="h-6 w-6" />
-                    ) : (
-                      <ChevronDown className="h-6 w-6" />
-                    )}
-                  </Button>
+                  <p className="mt-2 text-gray-600 dark:text-gray-300">
+                    {benefit.description}
+                  </p>
                 </div>
-                
-                <motion.div
-                  initial={false}
-                  animate={{ height: expandedId === benefit.id ? "auto" : 0 }}
-                  className="overflow-hidden"
-                >
-                  <div className="pt-4 space-y-4">
-                    <img 
-                      src={benefit.image} 
-                      alt={benefit.title}
-                      className="w-full rounded-lg shadow-md"
-                    />
-                    <p className="text-gray-600 dark:text-gray-300">
-                      {benefit.description}
-                    </p>
-                  </div>
-                </motion.div>
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
