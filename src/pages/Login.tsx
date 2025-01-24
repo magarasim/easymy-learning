@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,21 +8,35 @@ import { useToast } from "@/components/ui/use-toast";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" && session) {
-        navigate("/");
+        // Navigate to the intended page or dashboard
+        const intendedPath = location.state?.from?.pathname || "/";
+        navigate(intendedPath);
         toast({
           title: "Welcome back!",
           description: "You have successfully signed in.",
+        });
+      } else if (event === "SIGNED_UP") {
+        toast({
+          title: "Welcome!",
+          description: "Your account has been created successfully.",
+        });
+      } else if (event === "USER_DELETED") {
+        toast({
+          variant: "destructive",
+          title: "Account deleted",
+          description: "Your account has been successfully deleted.",
         });
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate, toast]);
+  }, [navigate, location, toast]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -42,11 +56,26 @@ const Login = () => {
                     },
                   },
                 },
+                className: {
+                  container: 'flex flex-col gap-4',
+                  button: 'bg-primary text-primary-foreground hover:bg-primary/90',
+                  input: 'bg-background',
+                },
               }}
               providers={[]}
               redirectTo={window.location.origin}
+              onError={(error) => {
+                toast({
+                  variant: "destructive",
+                  title: "Authentication Error",
+                  description: error.message,
+                });
+              }}
             />
           </div>
+          <p className="text-center mt-4 text-sm text-muted-foreground">
+            Please sign up if you don't have an account yet.
+          </p>
         </div>
       </div>
     </div>
