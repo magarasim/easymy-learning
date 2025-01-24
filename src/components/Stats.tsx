@@ -7,28 +7,28 @@ const Stats = () => {
 
   const stats = [
     {
-      number: "10,000+",
+      number: "2000+",
       label: "Active Students",
       link: "/students",
-      message: "Join our growing community of learners!"
+      message: "Join our growing community of over 2000 active learners!"
+    },
+    {
+      number: "100%",
+      label: "Scholarship Success",
+      link: "/scholarships",
+      message: "Learn about our scholarship opportunities and success stories"
     },
     {
       number: "500+",
+      label: "Video Lectures",
+      link: "/courses",
+      message: "Access our comprehensive library of video lectures"
+    },
+    {
+      number: "50+",
       label: "Expert Instructors",
       link: "/instructors",
-      message: "Learn from industry experts"
-    },
-    {
-      number: "1,000+",
-      label: "Course Hours",
-      link: "/courses",
-      message: "Explore our comprehensive curriculum"
-    },
-    {
-      number: "95%",
-      label: "Success Rate",
-      link: "/success-stories",
-      message: "See our student success stories"
+      message: "Learn from our qualified and experienced instructors"
     }
   ];
 

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
@@ -9,7 +10,7 @@ const Hero = () => {
           <div className="text-left animate-fade-up">
             <div className="flex justify-between items-start mb-6">
               <img 
-                src="/lovable-uploads/db562089-a0e0-499b-9925-e80d796c8480.png" 
+                src="/lovable-uploads/c4b7d511-c7bc-41d9-a21f-f2f128f4ce32.png" 
                 alt="EasyMy Learning Logo" 
                 className="w-24 h-24"
               />
@@ -34,14 +35,16 @@ const Hero = () => {
               <Button 
                 size="lg" 
                 className="text-lg px-8 bg-yellow-400 hover:bg-yellow-500 text-black"
+                onClick={() => window.open('https://wa.me/+9779863312602', '_blank')}
               >
-                Enroll Now
+                Join WhatsApp Group
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
                 className="text-lg px-8 border-white text-white hover:bg-white/10"
+                onClick={() => window.location.href = '/courses'}
               >
                 View Courses
               </Button>
@@ -51,24 +54,18 @@ const Hero = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-orange-500 opacity-30 blur-2xl rounded-lg"></div>
             <div className="relative bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/20">
               <h3 className="text-2xl font-bold text-white mb-4">Core Benefits</h3>
-              <ul className="space-y-4 text-white">
-                <li className="flex items-center gap-2">
-                  <span className="bg-green-500 rounded-full p-1">✓</span>
-                  Video Lectures & Live Classes
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="bg-green-500 rounded-full p-1">✓</span>
-                  MCQ Practice with Test System
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="bg-green-500 rounded-full p-1">✓</span>
-                  Study Materials & Resources
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="bg-green-500 rounded-full p-1">✓</span>
-                  Certificates & Awards
-                </li>
-              </ul>
+              <div className="space-y-4">
+                <img 
+                  src="/lovable-uploads/7dae9b03-684c-41e4-bbc0-c8657dad5097.png" 
+                  alt="Core Benefits"
+                  className="w-full rounded-lg shadow-lg"
+                />
+                <img 
+                  src="/lovable-uploads/f3bff778-3423-4584-9e8b-6083cd14ba42.png" 
+                  alt="Awards and Cash Prizes"
+                  className="w-full rounded-lg shadow-lg"
+                />
+              </div>
             </div>
           </div>
         </div>
