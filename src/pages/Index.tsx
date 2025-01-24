@@ -1,5 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Benefits from "@/components/Benefits";
@@ -8,6 +7,7 @@ import Stats from "@/components/Stats";
 import Footer from "@/components/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
 import Newsletter from "@/components/Newsletter";
+import { useLocation } from "react-router-dom";
 
 const Index = () => {
   const location = useLocation();
@@ -33,7 +33,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-hidden">
       <Navbar />
       <AnimatePresence mode="wait">
         <motion.div
