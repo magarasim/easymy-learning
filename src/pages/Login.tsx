@@ -21,16 +21,15 @@ const Login = () => {
           title: "Welcome back!",
           description: "You have successfully signed in.",
         });
-      } else if (event === "SIGNED_UP") {
+      } else if (event === "SIGNED_OUT") {
         toast({
-          title: "Welcome!",
-          description: "Your account has been created successfully.",
+          title: "Signed out",
+          description: "You have been signed out successfully.",
         });
-      } else if (event === "USER_DELETED") {
+      } else if (event === "PASSWORD_RECOVERY") {
         toast({
-          variant: "destructive",
-          title: "Account deleted",
-          description: "Your account has been successfully deleted.",
+          title: "Password Recovery",
+          description: "Check your email for password reset instructions.",
         });
       }
     });
@@ -64,13 +63,6 @@ const Login = () => {
               }}
               providers={[]}
               redirectTo={window.location.origin}
-              onError={(error) => {
-                toast({
-                  variant: "destructive",
-                  title: "Authentication Error",
-                  description: error.message,
-                });
-              }}
             />
           </div>
           <p className="text-center mt-4 text-sm text-muted-foreground">
