@@ -2,7 +2,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -21,6 +22,56 @@ const queryClient = new QueryClient({
   },
 });
 
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        {/* Public Routes */}
+        <Route path="/" element={<Index />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/contact" element={<Contact />} />
+        
+        {/* Protected Routes */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/resources"
+          element={
+            <ProtectedRoute>
+              <Resources />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/community"
+          element={
+            <ProtectedRoute>
+              <Community />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/blog"
+          element={
+            <ProtectedRoute>
+              <Blog />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -28,47 +79,7 @@ function App() {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/contact" element={<Contact />} />
-            
-            {/* Protected Routes */}
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/resources"
-              element={
-                <ProtectedRoute>
-                  <Resources />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/community"
-              element={
-                <ProtectedRoute>
-                  <Community />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/blog"
-              element={
-                <ProtectedRoute>
-                  <Blog />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
+          <AnimatedRoutes />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
