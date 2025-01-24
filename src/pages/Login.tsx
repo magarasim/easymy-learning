@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,34 +8,21 @@ import { useToast } from "@/components/ui/use-toast";
 
 const Login = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { toast } = useToast();
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" && session) {
-        // Navigate to the intended page or dashboard
-        const intendedPath = location.state?.from?.pathname || "/";
-        navigate(intendedPath);
+        navigate("/");
         toast({
           title: "Welcome back!",
           description: "You have successfully signed in.",
-        });
-      } else if (event === "SIGNED_OUT") {
-        toast({
-          title: "Signed out",
-          description: "You have been signed out successfully.",
-        });
-      } else if (event === "PASSWORD_RECOVERY") {
-        toast({
-          title: "Password Recovery",
-          description: "Check your email for password reset instructions.",
         });
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate, location, toast]);
+  }, [navigate, toast]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -55,19 +42,11 @@ const Login = () => {
                     },
                   },
                 },
-                className: {
-                  container: 'flex flex-col gap-4',
-                  button: 'bg-primary text-primary-foreground hover:bg-primary/90',
-                  input: 'bg-background',
-                },
               }}
               providers={[]}
               redirectTo={window.location.origin}
             />
           </div>
-          <p className="text-center mt-4 text-sm text-muted-foreground">
-            Please sign up if you don't have an account yet.
-          </p>
         </div>
       </div>
     </div>
