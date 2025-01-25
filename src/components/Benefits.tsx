@@ -87,8 +87,13 @@ const Benefits = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden"
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
+              <img 
+                src={section.image} 
+                alt={section.title}
+                className="w-full h-48 object-cover object-center"
+              />
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-4">{section.title}</h3>
                 <ul className="space-y-3">
