@@ -13,17 +13,29 @@ import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import { useEffect } from "react";
+import { supabase } from "./integrations/supabase/client";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 5 * 1000,
+      retry: 1,
     },
   },
 });
 
 const AnimatedRoutes = () => {
   const location = useLocation();
+
+  useEffect(() => {
+    // Configure Supabase auth redirects
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session && location.pathname === '/login') {
+        window.location.href = '/dashboard';
+      }
+    });
+  }, [location]);
 
   return (
     <AnimatePresence mode="wait">
