@@ -5,6 +5,7 @@ import Benefits from "@/components/Benefits";
 import CallToAction from "@/components/CallToAction";
 import Footer from "@/components/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
+import FeaturedCourses from "@/components/FeaturedCourses";
 
 const Index = () => {
   const pageVariants = {
@@ -38,6 +39,7 @@ const Index = () => {
         className="relative"
       >
         <Hero />
+        <FeaturedCourses />
         <Benefits />
         <CallToAction />
       </motion.div>

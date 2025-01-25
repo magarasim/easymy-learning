@@ -11,6 +11,10 @@ import {
 } from "@/components/ui/dialog";
 
 const Hero = () => {
+  const handleWhatsAppJoin = () => {
+    window.open('https://wa.me/+9779863312602', '_blank');
+  };
+
   return (
     <div className="min-h-[90vh] flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 dark:from-blue-950 dark:via-blue-900 dark:to-blue-800 pt-16">
       <div className="container mx-auto px-4 py-16">
@@ -99,14 +103,13 @@ const Hero = () => {
                       <p>+977 9802594435</p>
                       <p>+977 9820790791</p>
                     </div>
-                    <a 
-                      href="https://wa.me/+9779863312602"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-500 hover:text-blue-700 transition-colors block mt-4"
+                    <Button 
+                      onClick={handleWhatsAppJoin}
+                      className="mt-4 w-full"
+                      variant="outline"
                     >
                       Click here to join directly
-                    </a>
+                    </Button>
                   </div>
                 </DialogContent>
               </Dialog>
