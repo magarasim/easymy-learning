@@ -3,8 +3,7 @@ import { Phone, Mail, Youtube, ExternalLink } from "lucide-react";
 
 const CallToAction = () => {
   const handleWhatsAppRedirect = () => {
-    // Replace this URL with your actual WhatsApp group invite link
-    window.open('https://chat.whatsapp.com/your-group-link', '_blank');
+    window.open('https://wa.me/+9779863312602', '_blank');
   };
 
   const socialLinks = [
@@ -21,6 +20,14 @@ const CallToAction = () => {
     }
   ];
 
+  const phoneNumbers = [
+    "+977 9763570043",
+    "+977 9701583778",
+    "+977 9708553673",
+    "+977 9802594435",
+    "+977 9820790791"
+  ];
+
   return (
     <section className="py-20 bg-gradient-to-br from-blue-400 to-blue-600 dark:from-blue-800 dark:to-blue-900">
       <div className="container mx-auto px-4">
@@ -33,11 +40,9 @@ const CallToAction = () => {
             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
               <h3 className="text-xl font-semibold text-white mb-4">Call Us</h3>
               <div className="space-y-2 text-blue-100">
-                <p>+977 9763570043</p>
-                <p>+977 9701583778</p>
-                <p>+977 9708553673</p>
-                <p>+977 9802594435</p>
-                <p>+977 9820790791</p>
+                {phoneNumbers.map((number, index) => (
+                  <p key={index}>{number}</p>
+                ))}
               </div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
@@ -72,7 +77,11 @@ const CallToAction = () => {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8 bg-yellow-400 hover:bg-yellow-500 text-black">
+            <Button 
+              size="lg" 
+              className="text-lg px-8 bg-yellow-400 hover:bg-yellow-500 text-black"
+              onClick={() => window.open('tel:+9779863312602')}
+            >
               <Phone className="mr-2 h-5 w-5" />
               Call Now
             </Button>
