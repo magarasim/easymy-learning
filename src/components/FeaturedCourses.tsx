@@ -35,40 +35,39 @@ const FeaturedCourses = () => {
     setExpandedId(expandedId === courseId ? null : courseId);
   };
 
-  const handleEnrollClick = async (courseId: string) => {
+  const handlePurchase = async (courseId: string) => {
     const { data: { session } } = await supabase.auth.getSession();
     
     if (!session) {
       toast({
         title: "Login Required",
-        description: "Please login to enroll in courses",
+        description: "Please login to purchase courses",
       });
       navigate("/login");
       return;
     }
 
     try {
-      const { error } = await supabase
-        .from('enrollments')
-        .insert([
-          { course_id: courseId, user_id: session.user.id }
-        ]);
-
-      if (error) throw error;
-
-      toast({
-        title: "Enrolled Successfully",
-        description: "You have been enrolled in the course. Redirecting to dashboard...",
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-checkout`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ courseId }),
       });
-      
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 1500);
+
+      const { url, error } = await response.json();
+
+      if (error) throw new Error(error);
+      if (url) {
+        window.location.href = url;
+      }
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Enrollment Failed",
-        description: "There was an error enrolling in the course. Please try again.",
+        title: "Purchase Failed",
+        description: "There was an error processing your purchase. Please try again.",
       });
     }
   };
@@ -125,10 +124,10 @@ const FeaturedCourses = () => {
                         className="w-full"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleEnrollClick(course.id);
+                          handlePurchase(course.id);
                         }}
                       >
-                        Enroll Now <ExternalLink className="w-4 h-4 ml-2" />
+                        Purchase for ${course.price} <ExternalLink className="w-4 h-4 ml-2" />
                       </Button>
                     </div>
                   </div>
