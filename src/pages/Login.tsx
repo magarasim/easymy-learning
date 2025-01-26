@@ -115,14 +115,6 @@ const Login = () => {
                 }}
                 providers={[]}
                 redirectTo={window.location.origin}
-                onError={(error) => {
-                  console.error('Auth error:', error);
-                  toast({
-                    variant: "destructive",
-                    title: "Authentication Error",
-                    description: error.message || "Failed to authenticate. Please check your credentials and try again.",
-                  });
-                }}
               />
             </div>
           </motion.div>
