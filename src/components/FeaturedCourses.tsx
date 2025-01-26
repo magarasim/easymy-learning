@@ -2,111 +2,84 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Users, Clock, BookOpen, Code2, Database, Binary } from "lucide-react";
+import { ExternalLink, Users, Clock, BookOpen, Code2, Star, ThumbsUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
-
-const courses = [
-  {
-    title: "Frontend Development Mastery",
-    description: "Master modern frontend development with HTML, CSS, JavaScript, React, and TypeScript. Build responsive and interactive web applications with industry best practices.",
-    category: "Frontend",
-    students: "2,341",
-    duration: "12 weeks",
-    level: "Intermediate",
-    topics: [
-      "HTML5 & Modern CSS",
-      "JavaScript ES6+",
-      "TypeScript Fundamentals",
-      "React & Hooks",
-      "State Management",
-      "Responsive Design",
-      "API Integration"
-    ],
-    modules: [
-      "Module 1: HTML5 & CSS3 Fundamentals",
-      "Module 2: JavaScript Core Concepts",
-      "Module 3: TypeScript & Type Safety",
-      "Module 4: React Components & Props",
-      "Module 5: State & Effects",
-      "Module 6: API Integration & Data Fetching"
-    ],
-    image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7"
-  },
-  {
-    title: "Backend Development Professional",
-    description: "Learn backend development with Python, Node.js, Express, and PostgreSQL. Build scalable and secure REST APIs with modern backend technologies.",
-    category: "Backend",
-    students: "1,876",
-    duration: "14 weeks",
-    level: "Advanced",
-    topics: [
-      "Python Programming",
-      "Node.js & Express",
-      "PostgreSQL",
-      "API Design",
-      "Authentication",
-      "Security",
-      "Performance"
-    ],
-    modules: [
-      "Module 1: Python Fundamentals",
-      "Module 2: Database Design",
-      "Module 3: REST API Development",
-      "Module 4: Authentication & Security",
-      "Module 5: Performance Optimization",
-      "Module 6: Deployment & Scaling"
-    ],
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
-  },
-  {
-    title: "Full Stack Development Journey",
-    description: "Become a full-stack developer mastering both frontend and backend technologies. Learn to build complete web applications from start to finish.",
-    category: "Full Stack",
-    students: "1,543",
-    duration: "16 weeks",
-    level: "Advanced",
-    topics: [
-      "Frontend Development",
-      "Backend Development",
-      "Database Management",
-      "API Integration",
-      "DevOps Basics",
-      "Testing",
-      "Deployment"
-    ],
-    modules: [
-      "Module 1: Web Development Fundamentals",
-      "Module 2: Frontend Technologies",
-      "Module 3: Backend Development",
-      "Module 4: Database Integration",
-      "Module 5: Full Stack Projects",
-      "Module 6: Deployment & DevOps"
-    ],
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085"
-  }
-];
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 const FeaturedCourses = () => {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  const { data: courses = [], isLoading } = useQuery({
+    queryKey: ['featuredCourses'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('courses')
+        .select(`
+          *,
+          instructor:profiles(full_name)
+        `)
+        .order('rating', { ascending: false })
+        .limit(3);
+
+      if (error) throw error;
+      return data;
+    }
+  });
+
   const handleCourseClick = (courseId: number) => {
     setExpandedId(expandedId === courseId ? null : courseId);
   };
 
-  const handleEnrollClick = (courseTitle: string) => {
-    toast({
-      title: "Course Selected",
-      description: `You've selected ${courseTitle}. Redirecting to enrollment...`,
-    });
-    // Simulate loading
-    setTimeout(() => {
+  const handleEnrollClick = async (courseId: string) => {
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session) {
+      toast({
+        title: "Login Required",
+        description: "Please login to enroll in courses",
+      });
       navigate("/login");
-    }, 1500);
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('enrollments')
+        .insert([
+          { course_id: courseId, user_id: session.user.id }
+        ]);
+
+      if (error) throw error;
+
+      toast({
+        title: "Enrolled Successfully",
+        description: "You have been enrolled in the course. Redirecting to dashboard...",
+      });
+      
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1500);
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Enrollment Failed",
+        description: "There was an error enrolling in the course. Please try again.",
+      });
+    }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   return (
     <section className="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900">
@@ -130,7 +103,7 @@ const FeaturedCourses = () => {
           <AnimatePresence>
             {courses.map((course, index) => (
               <motion.div
-                key={index}
+                key={course.id}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -142,7 +115,7 @@ const FeaturedCourses = () => {
                 <Card className="group hover:shadow-xl transition-all duration-300 overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
                   <div className="aspect-video overflow-hidden relative">
                     <img
-                      src={course.image}
+                      src={course.image_url || "https://images.unsplash.com/photo-1587620962725-abab7fe55159"}
                       alt={course.title}
                       className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
                     />
@@ -152,7 +125,7 @@ const FeaturedCourses = () => {
                         className="w-full"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleEnrollClick(course.title);
+                          handleEnrollClick(course.id);
                         }}
                       >
                         Enroll Now <ExternalLink className="w-4 h-4 ml-2" />
@@ -183,64 +156,29 @@ const FeaturedCourses = () => {
                   </CardHeader>
                   
                   <CardContent className="space-y-4">
-                    <AnimatePresence>
-                      {expandedId === index && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <div className="space-y-4">
-                            <div>
-                              <h4 className="font-semibold mb-2 text-sm text-gray-700 dark:text-gray-200">Course Modules</h4>
-                              <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-300">
-                                {course.modules.map((module, i) => (
-                                  <motion.li
-                                    key={i}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: i * 0.1 }}
-                                    className="flex items-center"
-                                  >
-                                    <Code2 className="w-4 h-4 mr-2 text-primary" />
-                                    {module}
-                                  </motion.li>
-                                ))}
-                              </ul>
-                            </div>
-                            
-                            <div className="flex flex-wrap gap-2">
-                              {course.topics.map((topic, i) => (
-                                <motion.div
-                                  key={i}
-                                  initial={{ opacity: 0, scale: 0.8 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  transition={{ delay: i * 0.05 }}
-                                >
-                                  <Badge variant="outline" className="bg-gray-50 dark:bg-gray-700">
-                                    {topic}
-                                  </Badge>
-                                </motion.div>
-                              ))}
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                    
-                    <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 pt-4 border-t">
+                    <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                       <div className="flex items-center">
                         <Users className="w-4 h-4 mr-2" />
-                        {course.students} enrolled
+                        {course.enrollment_count || 0} enrolled
                       </div>
                       <div className="flex items-center">
+                        <Star className="w-4 h-4 mr-2 text-yellow-500" />
+                        {course.rating?.toFixed(1) || "New"}
+                      </div>
+                      <div className="flex items-center">
+                        <ThumbsUp className="w-4 h-4 mr-2" />
+                        {course.reviews_count || 0} reviews
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 pt-4 border-t">
+                      <div className="flex items-center">
                         <Clock className="w-4 h-4 mr-2" />
-                        {course.duration}
+                        {course.duration || "Self-paced"}
                       </div>
                       <div className="flex items-center">
                         <BookOpen className="w-4 h-4 mr-2" />
-                        {course.modules.length} modules
+                        By {course.instructor?.full_name || "Expert Instructor"}
                       </div>
                     </div>
                   </CardContent>

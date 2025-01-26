@@ -15,11 +15,14 @@ export type Database = {
           created_at: string
           description: string | null
           duration: string | null
+          enrollment_count: number | null
           id: string
           image_url: string | null
           instructor_id: string | null
           level: string | null
           price: number | null
+          rating: number | null
+          reviews_count: number | null
           title: string
           updated_at: string
         }
@@ -28,11 +31,14 @@ export type Database = {
           created_at?: string
           description?: string | null
           duration?: string | null
+          enrollment_count?: number | null
           id?: string
           image_url?: string | null
           instructor_id?: string | null
           level?: string | null
           price?: number | null
+          rating?: number | null
+          reviews_count?: number | null
           title: string
           updated_at?: string
         }
@@ -41,11 +47,14 @@ export type Database = {
           created_at?: string
           description?: string | null
           duration?: string | null
+          enrollment_count?: number | null
           id?: string
           image_url?: string | null
           instructor_id?: string | null
           level?: string | null
           price?: number | null
+          rating?: number | null
+          reviews_count?: number | null
           title?: string
           updated_at?: string
         }
@@ -177,6 +186,51 @@ export type Database = {
           username?: string | null
         }
         Relationships: []
+      }
+      reviews: {
+        Row: {
+          comment: string | null
+          course_id: string | null
+          created_at: string | null
+          id: string
+          rating: number
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          comment?: string | null
+          course_id?: string | null
+          created_at?: string | null
+          id?: string
+          rating: number
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          comment?: string | null
+          course_id?: string | null
+          created_at?: string | null
+          id?: string
+          rating?: number
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
