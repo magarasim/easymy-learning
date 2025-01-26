@@ -12,10 +12,19 @@ const Login = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    // Check if user is already logged in
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        navigate("/dashboard");
+      }
+    };
+    checkUser();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === "SIGNED_IN" && session) {
-        // Create or update user profile
-        const createProfile = async () => {
+        try {
+          // Check if profile exists
           const { data: profile, error: profileError } = await supabase
             .from('profiles')
             .select()
@@ -23,7 +32,8 @@ const Login = () => {
             .single();
 
           if (!profile && !profileError) {
-            const { error } = await supabase
+            // Create profile if it doesn't exist
+            const { error: insertError } = await supabase
               .from('profiles')
               .insert([
                 {
@@ -34,17 +44,34 @@ const Login = () => {
                 }
               ]);
 
-            if (error) {
-              console.error('Error creating profile:', error);
+            if (insertError) {
+              console.error('Error creating profile:', insertError);
+              toast({
+                variant: "destructive",
+                title: "Error",
+                description: "Failed to create user profile. Please try again.",
+              });
+              return;
             }
           }
-        };
 
-        createProfile();
-        navigate("/dashboard");
+          toast({
+            title: "Welcome!",
+            description: "You have successfully signed in.",
+          });
+          navigate("/dashboard");
+        } catch (error) {
+          console.error('Error during sign in:', error);
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: "An unexpected error occurred. Please try again.",
+          });
+        }
+      } else if (event === "SIGNED_OUT") {
         toast({
-          title: "Welcome!",
-          description: "You have successfully signed in.",
+          title: "Signed out",
+          description: "You have been signed out successfully.",
         });
       }
     });
@@ -88,6 +115,14 @@ const Login = () => {
                 }}
                 providers={[]}
                 redirectTo={window.location.origin}
+                onError={(error) => {
+                  console.error('Auth error:', error);
+                  toast({
+                    variant: "destructive",
+                    title: "Authentication Error",
+                    description: error.message || "Failed to authenticate. Please check your credentials and try again.",
+                  });
+                }}
               />
             </div>
           </motion.div>
