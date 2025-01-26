@@ -8,23 +8,51 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import type { CourseFilters } from "@/components/CourseSearch";
 
-const FeaturedCourses = () => {
+interface FeaturedCoursesProps {
+  searchQuery?: string;
+  filters?: CourseFilters;
+}
+
+const FeaturedCourses = ({ searchQuery = "", filters = {} }: FeaturedCoursesProps) => {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const { data: courses = [], isLoading } = useQuery({
-    queryKey: ['featuredCourses'],
+    queryKey: ['featuredCourses', searchQuery, filters],
     queryFn: async () => {
-      const { data, error } = await supabase
+      let query = supabase
         .from('courses')
         .select(`
           *,
           instructor:profiles(full_name)
         `)
-        .order('rating', { ascending: false })
-        .limit(3);
+        .order('rating', { ascending: false });
+
+      if (searchQuery) {
+        query = query.ilike('title', `%${searchQuery}%`);
+      }
+
+      if (filters.category) {
+        query = query.eq('category', filters.category);
+      }
+
+      if (filters.level) {
+        query = query.eq('level', filters.level);
+      }
+
+      if (filters.priceRange) {
+        const [min, max] = filters.priceRange.split('-').map(Number);
+        if (max) {
+          query = query.gte('price', min).lte('price', max);
+        } else {
+          query = query.gte('price', min);
+        }
+      }
+
+      const { data, error } = await query.limit(6);
 
       if (error) throw error;
       return data;
