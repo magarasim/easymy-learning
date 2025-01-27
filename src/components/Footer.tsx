@@ -7,7 +7,7 @@ import {
   Linkedin, 
   Youtube, 
   ArrowUp, 
-  WhatsApp,
+  MessageSquare,
   ExternalLink 
 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -28,7 +28,7 @@ const Footer = () => {
 
   const socialLinks = [
     { 
-      icon: WhatsApp, 
+      icon: MessageSquare, 
       label: "WhatsApp Group", 
       url: "https://chat.whatsapp.com/your-group-link",
       className: "hover:text-green-500"
