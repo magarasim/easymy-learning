@@ -53,6 +53,26 @@ const Login = () => {
               });
               return;
             }
+
+            // Send welcome email
+            try {
+              await supabase.functions.invoke('send-email', {
+                body: {
+                  to: session.user.email,
+                  subject: "Welcome to EasyMy Learning!",
+                  html: `
+                    <h1>Welcome to EasyMy Learning!</h1>
+                    <p>Dear ${session.user.email?.split('@')[0]},</p>
+                    <p>Thank you for joining EasyMy Learning! We're excited to have you on board.</p>
+                    <p>Get started by exploring our courses and resources.</p>
+                    <p>Best regards,<br>The EasyMy Learning Team</p>
+                  `
+                }
+              });
+            } catch (emailError) {
+              console.error('Error sending welcome email:', emailError);
+              // Don't show toast for email error as it's not critical
+            }
           }
 
           toast({
