@@ -3,18 +3,48 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent",
-      description: "We'll get back to you as soon as possible!",
-    });
+    setIsLoading(true);
+
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const message = formData.get('message') as string;
+
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: { name, email, message },
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Message Sent",
+        description: "We'll get back to you as soon as possible!",
+      });
+
+      // Reset form
+      (e.target as HTMLFormElement).reset();
+    } catch (error: any) {
+      console.error('Error sending message:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -68,22 +98,23 @@ const Contact = () => {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">Name</label>
-                  <Input placeholder="Your name" required />
+                  <Input name="name" placeholder="Your name" required />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Email</label>
-                  <Input type="email" placeholder="your@email.com" required />
+                  <Input name="email" type="email" placeholder="your@email.com" required />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Message</label>
                   <Textarea 
+                    name="message"
                     placeholder="How can we help you?"
                     className="min-h-[150px]"
                     required
                   />
                 </div>
-                <Button type="submit" className="w-full">
-                  Send Message
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? "Sending..." : "Send Message"}
                 </Button>
               </div>
             </form>
