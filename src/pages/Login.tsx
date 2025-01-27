@@ -68,11 +68,6 @@ const Login = () => {
             description: "An unexpected error occurred. Please try again.",
           });
         }
-      } else if (event === "SIGNED_OUT") {
-        toast({
-          title: "Signed out",
-          description: "You have been signed out successfully.",
-        });
       }
     });
 
