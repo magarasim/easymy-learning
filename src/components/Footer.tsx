@@ -140,7 +140,7 @@ const Footer = () => {
                 className="bg-white/50 dark:bg-white/10"
                 required
               />
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
                 Subscribe
               </Button>
             </form>
