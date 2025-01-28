@@ -12,7 +12,6 @@ const Login = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check if user is already logged in
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
@@ -54,18 +53,28 @@ const Login = () => {
               return;
             }
 
-            // Send welcome email
+            // Send welcome email using the edge function
             try {
               await supabase.functions.invoke('send-email', {
                 body: {
                   to: session.user.email,
                   subject: "Welcome to EasyMy Learning!",
                   html: `
-                    <h1>Welcome to EasyMy Learning!</h1>
-                    <p>Dear ${session.user.email?.split('@')[0]},</p>
-                    <p>Thank you for joining EasyMy Learning! We're excited to have you on board.</p>
-                    <p>Get started by exploring our courses and resources.</p>
-                    <p>Best regards,<br>The EasyMy Learning Team</p>
+                    <div style="background-color: #f9fafb; padding: 40px 0;">
+                      <div style="max-width: 600px; margin: 0 auto; background-color: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                        <h1 style="color: #1e40af; margin-bottom: 20px;">Welcome to EasyMy Learning!</h1>
+                        <p style="color: #374151; font-size: 16px; line-height: 1.6;">Dear ${session.user.email?.split('@')[0]},</p>
+                        <p style="color: #374151; font-size: 16px; line-height: 1.6;">Thank you for joining EasyMy Learning! We're excited to have you on board.</p>
+                        <p style="color: #374151; font-size: 16px; line-height: 1.6;">Get started by exploring our courses and resources.</p>
+                        <div style="margin: 30px 0;">
+                          <a href="${window.location.origin}/dashboard" 
+                             style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
+                             Explore Courses
+                          </a>
+                        </div>
+                        <p style="color: #374151; font-size: 16px; line-height: 1.6;">Best regards,<br>The EasyMy Learning Team</p>
+                      </div>
+                    </div>
                   `
                 }
               });
@@ -99,16 +108,28 @@ const Login = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900 dark:to-blue-800"
+      className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900"
     >
-      <div className="container mx-auto px-4 pt-24">
+      <div className="container mx-auto px-4 pt-16">
         <div className="max-w-md mx-auto">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
+            className="text-center mb-8"
           >
-            <h1 className="text-3xl font-bold text-center mb-8">Welcome to EasyMy Learning</h1>
+            <h1 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-4">
+              Welcome to EasyMy Learning
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300">
+              Your journey to knowledge starts here
+            </p>
+          </motion.div>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
             <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
               <Auth
                 supabaseClient={supabase}
@@ -117,8 +138,8 @@ const Login = () => {
                   variables: {
                     default: {
                       colors: {
-                        brand: 'rgb(59, 130, 246)',
-                        brandAccent: 'rgb(37, 99, 235)',
+                        brand: 'rgb(37, 99, 235)',
+                        brandAccent: 'rgb(29, 78, 216)',
                       },
                     },
                   },
