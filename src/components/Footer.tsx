@@ -11,7 +11,8 @@ import {
   Mail,
   Phone,
   MapPin,
-  MessageSquare
+  MessageSquare,
+  PhoneCall
 } from "lucide-react";
 
 const Footer = () => {
@@ -37,17 +38,18 @@ const Footer = () => {
     { icon: <Instagram className="w-5 h-5" />, url: "https://instagram.com/easymylearning", label: "Instagram" },
     { icon: <Linkedin className="w-5 h-5" />, url: "https://linkedin.com/company/easymylearning", label: "LinkedIn" },
     { icon: <Youtube className="w-5 h-5" />, url: "https://youtube.com/@easymylearning", label: "YouTube" },
-    { icon: <MessageSquare className="w-5 h-5" />, url: "https://wa.me/+9779863312602", label: "WhatsApp" }
+    { icon: <MessageSquare className="w-5 h-5" />, url: "https://chat.whatsapp.com/KSdzJ6Ff0kX9vQJPVSLvXC", label: "Join WhatsApp Group" }
   ];
 
   const contactInfo = [
     { icon: <Phone className="w-5 h-5" />, text: "+977 9863312602" },
+    { icon: <PhoneCall className="w-5 h-5" />, text: "+977 9841589082" },
     { icon: <Mail className="w-5 h-5" />, text: "info@easymylearning.com" },
     { icon: <MapPin className="w-5 h-5" />, text: "Kathmandu, Nepal" }
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-blue-100 via-blue-50 to-white dark:from-blue-900 dark:via-blue-800 dark:to-blue-900">
+    <footer className="bg-gradient-to-br from-purple-100 via-blue-50 to-white dark:from-purple-900 dark:via-blue-900 dark:to-blue-950">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -57,8 +59,10 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
             className="space-y-4"
           >
-            <h3 className="text-xl font-bold text-blue-900 dark:text-white">EasyMy Learning</h3>
-            <p className="text-blue-700 dark:text-blue-200">
+            <h3 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent dark:from-purple-400 dark:to-blue-400">
+              EasyMy Learning
+            </h3>
+            <p className="text-gray-700 dark:text-gray-300">
               Empowering learners worldwide with quality education and practical skills.
             </p>
             <div className="flex space-x-4">
@@ -68,8 +72,9 @@ const Footer = () => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 transition-colors"
-                  whileHover={{ scale: 1.1 }}
+                  className="text-purple-600 hover:text-blue-600 dark:text-purple-400 dark:hover:text-blue-400 transition-colors"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
                   aria-label={link.label}
                 >
                   {link.icon}
@@ -85,13 +90,19 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="space-y-4"
           >
-            <h3 className="text-xl font-bold text-blue-900 dark:text-white">Quick Links</h3>
+            <h3 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent dark:from-purple-400 dark:to-blue-400">
+              Quick Links
+            </h3>
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
-                <motion.li key={index} whileHover={{ x: 5 }}>
+                <motion.li 
+                  key={index} 
+                  whileHover={{ x: 5 }}
+                  className="transform transition-all duration-200"
+                >
                   <Link
                     to={link.path}
-                    className="text-blue-700 hover:text-blue-900 dark:text-blue-200 dark:hover:text-white transition-colors"
+                    className="text-gray-700 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-400 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -107,15 +118,17 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="space-y-4"
           >
-            <h3 className="text-xl font-bold text-blue-900 dark:text-white">Contact Info</h3>
+            <h3 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent dark:from-purple-400 dark:to-blue-400">
+              Contact Info
+            </h3>
             <ul className="space-y-3">
               {contactInfo.map((info, index) => (
                 <motion.li
                   key={index}
-                  className="flex items-center space-x-2 text-blue-700 dark:text-blue-200"
+                  className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
                   whileHover={{ x: 5 }}
                 >
-                  {info.icon}
+                  <span className="text-purple-600 dark:text-purple-400">{info.icon}</span>
                   <span>{info.text}</span>
                 </motion.li>
               ))}
@@ -129,18 +142,23 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="space-y-4"
           >
-            <h3 className="text-xl font-bold text-blue-900 dark:text-white">Newsletter</h3>
-            <p className="text-blue-700 dark:text-blue-200">
+            <h3 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent dark:from-purple-400 dark:to-blue-400">
+              Newsletter
+            </h3>
+            <p className="text-gray-700 dark:text-gray-300">
               Subscribe to our newsletter for updates and special offers.
             </p>
             <form onSubmit={handleSubscribe} className="space-y-2">
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="bg-white/50 dark:bg-white/10"
+                className="bg-white/50 dark:bg-white/10 border-purple-200 dark:border-purple-800 focus:border-purple-500 dark:focus:border-purple-400"
                 required
               />
-              <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button 
+                type="submit" 
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600 text-white transition-all duration-300 transform hover:scale-105"
+              >
                 Subscribe
               </Button>
             </form>
@@ -152,7 +170,7 @@ const Footer = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-12 pt-8 border-t border-blue-200 dark:border-blue-800 text-center text-blue-700 dark:text-blue-200"
+          className="mt-12 pt-8 border-t border-purple-200 dark:border-purple-800 text-center text-gray-700 dark:text-gray-300"
         >
           <p>&copy; {new Date().getFullYear()} EasyMy Learning. All rights reserved.</p>
         </motion.div>
