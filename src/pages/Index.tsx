@@ -36,25 +36,27 @@ const Index = () => {
   const pageVariants = {
     initial: {
       opacity: 0,
-      x: "100vw",
+      y: 20,
     },
     animate: {
       opacity: 1,
-      x: 0,
+      y: 0,
       transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
+        duration: 0.8,
+        ease: "easeOut",
       },
     },
     exit: {
       opacity: 0,
-      x: "-100vw",
+      y: -20,
+      transition: {
+        duration: 0.5,
+      },
     },
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 transition-colors duration-500">
       <Navbar />
       <motion.div
         variants={pageVariants}
@@ -63,25 +65,63 @@ const Index = () => {
         exit="exit"
         className="relative"
       >
-        <Hero />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+        >
+          <Hero />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="relative z-10"
         >
           <CourseSearch onSearch={handleSearch} onFilterChange={handleFilterChange} />
         </motion.div>
-        <FeaturedCourses searchQuery={searchQuery} filters={filters} />
-        <Features />
-        <Benefits />
-        <CallToAction />
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+        >
+          <FeaturedCourses searchQuery={searchQuery} filters={filters} />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
+        >
+          <Features />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.8 }}
+        >
+          <Benefits />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+        >
+          <CallToAction />
+        </motion.div>
       </motion.div>
+
       <Footer />
+      
       <motion.div 
         className="fixed bottom-8 right-8 z-50"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ delay: 1, type: "spring" }}
+        transition={{ delay: 1.4, type: "spring", stiffness: 200, damping: 20 }}
       >
         <ThemeToggle />
       </motion.div>
