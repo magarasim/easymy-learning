@@ -16,7 +16,7 @@ import { Achievements } from "@/components/Achievements";
 import Partners from "@/components/Partners";
 import Stats from "@/components/Stats";
 import Newsletter from "@/components/Newsletter";
-import OnlineStudents from "@/components/OnlineStudents";
+import { OnlineStudents } from "@/components/OnlineStudents";
 import Testimonials from "@/components/Testimonials";
 
 const Index = () => {
