@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
@@ -11,6 +12,12 @@ import Features from "@/components/Features";
 import CourseSearch from "@/components/CourseSearch";
 import { useToast } from "@/components/ui/use-toast";
 import type { CourseFilters } from "@/components/CourseSearch";
+import { Achievements } from "@/components/Achievements";
+import Partners from "@/components/Partners";
+import Stats from "@/components/Stats";
+import Newsletter from "@/components/Newsletter";
+import OnlineStudents from "@/components/OnlineStudents";
+import Testimonials from "@/components/Testimonials";
 
 const Index = () => {
   const { toast } = useToast();
@@ -58,6 +65,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 transition-colors duration-500">
       <Navbar />
+      
       <motion.div
         variants={pageVariants}
         initial="initial"
@@ -65,6 +73,16 @@ const Index = () => {
         exit="exit"
         className="relative"
       >
+        {/* Live Students Counter - Floating Component */}
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.2, type: "spring" }}
+          className="fixed top-20 right-4 z-50"
+        >
+          <OnlineStudents />
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -95,7 +113,7 @@ const Index = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
         >
-          <Features />
+          <Stats />
         </motion.div>
 
         <motion.div
@@ -103,13 +121,53 @@ const Index = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.8 }}
         >
-          <Benefits />
+          <Features />
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.8 }}
+        >
+          <Achievements />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.4, duration: 0.8 }}
+        >
+          <Benefits />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.6, duration: 0.8 }}
+        >
+          <Testimonials />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.8, duration: 0.8 }}
+        >
+          <Partners />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2, duration: 0.8 }}
+        >
+          <Newsletter />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.2, duration: 0.8 }}
         >
           <CallToAction />
         </motion.div>
@@ -121,7 +179,7 @@ const Index = () => {
         className="fixed bottom-8 right-8 z-50"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ delay: 1.4, type: "spring", stiffness: 200, damping: 20 }}
+        transition={{ delay: 2.4, type: "spring", stiffness: 200, damping: 20 }}
       >
         <ThemeToggle />
       </motion.div>
