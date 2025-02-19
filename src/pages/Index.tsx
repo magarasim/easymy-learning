@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Benefits from "@/components/Benefits";
@@ -18,11 +18,14 @@ import Stats from "@/components/Stats";
 import Newsletter from "@/components/Newsletter";
 import { OnlineStudents } from "@/components/OnlineStudents";
 import Testimonials from "@/components/Testimonials";
+import { Button } from "@/components/ui/button";
+import { MessageSquare, ChevronUp } from "lucide-react";
 
 const Index = () => {
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState<CourseFilters>({});
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -39,6 +42,26 @@ const Index = () => {
       description: "Course list has been updated with your filters",
     });
   };
+
+  const handleJoinWhatsApp = () => {
+    window.open('https://wa.me/+9779863312602', '_blank');
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const pageVariants = {
     initial: {
@@ -73,14 +96,46 @@ const Index = () => {
         exit="exit"
         className="relative"
       >
-        {/* Live Students Counter - Floating Component */}
+        {/* WhatsApp Join Button - Floating Component */}
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.1, type: "spring" }}
+          className="fixed top-24 left-4 z-50"
+        >
+          <Button
+            onClick={handleJoinWhatsApp}
+            className="bg-green-500 hover:bg-green-600 text-white shadow-lg flex items-center gap-2 rounded-full px-6"
+          >
+            <MessageSquare className="w-4 h-4" />
+            Join WhatsApp
+          </Button>
+        </motion.div>
+
+        {/* Live Students Counter */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: "spring" }}
-          className="fixed top-20 right-4 z-50"
+          className="fixed top-24 right-4 z-50"
         >
           <OnlineStudents />
+        </motion.div>
+
+        {/* Scroll to Top Button */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showScrollTop ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+          className="fixed bottom-24 right-8 z-50"
+        >
+          <Button
+            onClick={scrollToTop}
+            className="rounded-full w-12 h-12 bg-blue-500 hover:bg-blue-600 text-white shadow-lg"
+            style={{ opacity: showScrollTop ? 1 : 0 }}
+          >
+            <ChevronUp className="w-6 h-6" />
+          </Button>
         </motion.div>
 
         <motion.div
