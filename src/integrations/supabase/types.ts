@@ -9,6 +9,47 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      achievements: {
+        Row: {
+          achievement_type: string
+          badge_url: string | null
+          description: string | null
+          earned_at: string | null
+          id: string
+          points: number | null
+          title: string
+          user_id: string | null
+        }
+        Insert: {
+          achievement_type: string
+          badge_url?: string | null
+          description?: string | null
+          earned_at?: string | null
+          id?: string
+          points?: number | null
+          title: string
+          user_id?: string | null
+        }
+        Update: {
+          achievement_type?: string
+          badge_url?: string | null
+          description?: string | null
+          earned_at?: string | null
+          id?: string
+          points?: number | null
+          title?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "achievements_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       courses: {
         Row: {
           category: string
@@ -150,6 +191,48 @@ export type Database = {
             columns: ["course_id"]
             isOneToOne: false
             referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      online_presence: {
+        Row: {
+          activity: string | null
+          current_course_id: string | null
+          id: string
+          last_seen: string | null
+          status: string | null
+          user_id: string | null
+        }
+        Insert: {
+          activity?: string | null
+          current_course_id?: string | null
+          id?: string
+          last_seen?: string | null
+          status?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          activity?: string | null
+          current_course_id?: string | null
+          id?: string
+          last_seen?: string | null
+          status?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "online_presence_current_course_id_fkey"
+            columns: ["current_course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "online_presence_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
