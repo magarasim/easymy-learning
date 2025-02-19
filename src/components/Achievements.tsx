@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { motion, AnimatePresence } from "framer-motion"; // Fixed: Added AnimatePresence import
+import { motion, AnimatePresence } from "framer-motion";
 import { Award, Star, Trophy } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -91,13 +91,14 @@ export const Achievements = () => {
         My Achievements
       </h2>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <AnimatePresence>
+        <AnimatePresence mode="popLayout">
           {achievements.map((achievement) => (
             <motion.div
               key={achievement.id}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
+              layout
               className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-purple-500 dark:hover:border-purple-400 transition-colors"
             >
               <div className="flex items-start space-x-4">
