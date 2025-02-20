@@ -1,10 +1,8 @@
-
-import { Award, BookOpen, Laptop, Gift, Users, Trophy, BookCheck, Brain, Rocket, Target, Compass, Star } from "lucide-react";
+import { Award, BookOpen, Laptop, Gift, Users, Trophy, BookCheck, Brain, Rocket, Target, Compass } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+import { FeatureCard } from "./features/FeatureCard";
+import { CategoryFilters } from "./features/CategoryFilters";
 
 const features = [
   {
@@ -107,94 +105,23 @@ const Features = () => {
             Explore our comprehensive development tracks and learning features
           </p>
 
-          <div className="flex flex-wrap justify-center gap-2 mt-6">
-            {categories.map((category) => (
-              <Button
-                key={category}
-                variant={selectedCategory === category ? "default" : "outline"}
-                onClick={() => setSelectedCategory(category)}
-                className="transition-all duration-300"
-              >
-                {category}
-              </Button>
-            ))}
-          </div>
+          <CategoryFilters
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onCategorySelect={setSelectedCategory}
+          />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredFeatures.map((feature, index) => (
-            <motion.div
+            <FeatureCard
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              feature={feature}
+              index={index}
+              isHovered={hoveredCard === index}
               onHoverStart={() => setHoveredCard(index)}
               onHoverEnd={() => setHoveredCard(null)}
-              className="group relative"
-            >
-              <HoverCard>
-                <HoverCardTrigger asChild>
-                  <div className="relative overflow-hidden rounded-xl bg-white/80 dark:bg-blue-800/50 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <div className="relative h-48 overflow-hidden">
-                      <img
-                        src={feature.image}
-                        alt={feature.title}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                      />
-                      <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-60 group-hover:opacity-70 transition-opacity duration-300`} />
-                      <feature.icon className="absolute top-4 right-4 w-8 h-8 text-white" />
-                      
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: hoveredCard === index ? 1 : 0, y: hoveredCard === index ? 0 : 20 }}
-                        className="absolute bottom-4 left-4 flex space-x-2"
-                      >
-                        <Badge variant="secondary" className="bg-white/90 text-gray-800">
-                          <Users className="w-3 h-3 mr-1" />
-                          {feature.stats.students}
-                        </Badge>
-                        <Badge variant="secondary" className="bg-white/90 text-gray-800">
-                          <Star className="w-3 h-3 mr-1" />
-                          {feature.stats.rating}
-                        </Badge>
-                      </motion.div>
-                    </div>
-                    
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
-                        {feature.title}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-300">
-                        {feature.description}
-                      </p>
-                    </div>
-                    
-                    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                </HoverCardTrigger>
-                
-                <HoverCardContent className="w-80">
-                  <div className="space-y-2">
-                    <h4 className="text-sm font-semibold">{feature.title}</h4>
-                    <div className="flex justify-between text-sm">
-                      <span>Total Students:</span>
-                      <span className="font-medium">{feature.stats.students}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Average Rating:</span>
-                      <span className="font-medium">{feature.stats.rating}/5.0</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Reviews:</span>
-                      <span className="font-medium">{feature.stats.reviews}</span>
-                    </div>
-                    <Button className="w-full mt-2" variant="outline">
-                      Learn More
-                    </Button>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
-            </motion.div>
+            />
           ))}
         </div>
       </div>
