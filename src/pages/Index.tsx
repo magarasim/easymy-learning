@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
@@ -18,6 +17,7 @@ import Stats from "@/components/Stats";
 import Newsletter from "@/components/Newsletter";
 import { OnlineStudents } from "@/components/OnlineStudents";
 import Testimonials from "@/components/Testimonials";
+import InternshipProgram from "@/components/InternshipProgram";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, ChevronUp } from "lucide-react";
 
@@ -96,7 +96,6 @@ const Index = () => {
         exit="exit"
         className="relative"
       >
-        {/* WhatsApp Join Button - Floating Component */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -112,7 +111,6 @@ const Index = () => {
           </Button>
         </motion.div>
 
-        {/* Live Students Counter */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -122,7 +120,6 @@ const Index = () => {
           <OnlineStudents />
         </motion.div>
 
-        {/* Scroll to Top Button */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: showScrollTop ? 1 : 0 }}
@@ -160,7 +157,7 @@ const Index = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          <FeaturedCourses searchQuery={searchQuery} filters={filters} />
+          <InternshipProgram />
         </motion.div>
 
         <motion.div
