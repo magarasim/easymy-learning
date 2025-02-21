@@ -3,53 +3,89 @@ import { motion } from "framer-motion";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Github, Linkedin, Twitter } from "lucide-react";
 
 interface Intern {
   name: string;
   role: string;
   image: string;
+  bio?: string;
+  skills?: string[];
+  social?: {
+    github?: string;
+    linkedin?: string;
+    twitter?: string;
+  };
 }
 
 const interns: Intern[] = [
   {
-    name: "Sarah Johnson",
+    name: "Alex Chen",
     role: "Full Stack Developer Intern",
-    image: "/lovable-uploads/973600f4-7cb9-4788-bd25-b4cd5fffa9b3.png"
+    image: "/lovable-uploads/177a7430-45cd-48af-a5b3-4530819e536b.png",
+    bio: "Passionate about building scalable web applications and learning new technologies.",
+    skills: ["React", "Node.js", "TypeScript"],
+    social: {
+      github: "https://github.com",
+      linkedin: "https://linkedin.com"
+    }
   },
   {
-    name: "Michael Chen",
+    name: "Sarah Miller",
     role: "UI/UX Design Intern",
-    image: "/lovable-uploads/88959ca4-7d53-4d1a-8f3d-16a3602420fe.png"
-  },
-  {
-    name: "Emily Rodriguez",
-    role: "Frontend Developer Intern",
-    image: "/lovable-uploads/978b14a0-4204-44d9-a5b5-5ebfebce37c5.png"
-  },
-  {
-    name: "David Kim",
-    role: "Backend Developer Intern",
-    image: "/lovable-uploads/7840f035-5305-4485-92a4-c427e706b893.png"
-  },
-  {
-    name: "Lisa Wang",
-    role: "Mobile App Developer Intern",
-    image: "/lovable-uploads/789d3055-4634-45de-b5e0-3b0faa87358f.png"
+    image: "/lovable-uploads/1fa1b139-6c61-44ff-a996-224a1752f7a6.png",
+    bio: "Creative designer focused on crafting beautiful and intuitive user experiences.",
+    skills: ["Figma", "Adobe XD", "User Research"],
+    social: {
+      linkedin: "https://linkedin.com",
+      twitter: "https://twitter.com"
+    }
   },
   {
     name: "James Wilson",
+    role: "Frontend Developer Intern",
+    image: "/lovable-uploads/28e4901e-6806-41f5-8bf6-2479fe7118cc.png",
+    bio: "Frontend enthusiast with a keen eye for detail and performance optimization.",
+    skills: ["React", "CSS", "JavaScript"],
+    social: {
+      github: "https://github.com"
+    }
+  },
+  {
+    name: "Emily Zhang",
+    role: "Backend Developer Intern",
+    image: "/lovable-uploads/85722318-f9f5-4283-a33a-6d10a88d8380.png",
+    bio: "Backend developer passionate about building robust and efficient systems.",
+    skills: ["Python", "Django", "PostgreSQL"]
+  },
+  {
+    name: "Michael Brown",
+    role: "Mobile App Developer Intern",
+    image: "/lovable-uploads/95a0c5f6-c40c-46ce-ade4-d298d207eda7.png",
+    bio: "Mobile developer focused on creating seamless user experiences.",
+    skills: ["React Native", "iOS", "Android"]
+  },
+  {
+    name: "Lisa Park",
     role: "DevOps Engineer Intern",
-    image: "/lovable-uploads/58672377-a9af-4b6c-b08e-4a3eb119fc12.png"
+    image: "/lovable-uploads/b8a6f831-1cd0-4691-b270-1375b0a4158c.png",
+    bio: "DevOps enthusiast working on automation and infrastructure improvements.",
+    skills: ["Docker", "Kubernetes", "AWS"]
   },
   {
-    name: "Anna Martinez",
+    name: "David Kumar",
     role: "Data Science Intern",
-    image: "/lovable-uploads/3b3fc1a3-9db9-468b-9b6f-a5c2b5c19420.png"
+    image: "/lovable-uploads/c4b7d511-c7bc-41d9-a21f-f2f128f4ce32.png",
+    bio: "Data scientist exploring machine learning and AI applications.",
+    skills: ["Python", "TensorFlow", "Data Analysis"]
   },
   {
-    name: "Tom Anderson",
+    name: "Rachel Torres",
     role: "Cloud Computing Intern",
-    image: "/lovable-uploads/303c6b7f-4d31-4b54-8e4e-55fe21719f54.png"
+    image: "/lovable-uploads/db562089-a0e0-499b-9925-e80d796c8480.png",
+    bio: "Cloud computing specialist working on scalable solutions.",
+    skills: ["AWS", "Azure", "Cloud Architecture"]
   }
 ];
 
@@ -64,10 +100,10 @@ const InternshipProgram = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Our Internship Program
+            Meet Our Talented Interns
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Meet our talented interns who are developing their skills and contributing to our mission
+            Our diverse team of interns brings fresh perspectives and innovative ideas to our projects
           </p>
         </motion.div>
 
@@ -78,17 +114,18 @@ const InternshipProgram = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
+              whileHover={{ y: -5 }}
             >
               <Sheet>
                 <SheetTrigger asChild>
-                  <Card className="relative overflow-hidden cursor-pointer transform hover:-translate-y-1 transition-all duration-300">
+                  <Card className="relative overflow-hidden cursor-pointer transform transition-all duration-300 hover:shadow-xl">
                     <div className="aspect-square relative">
                       <img
                         src={intern.image}
                         alt={intern.name}
                         className="w-full h-full object-cover rounded-t-lg"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                       <div className="absolute bottom-4 left-4 right-4 text-white">
                         <h3 className="text-lg font-semibold truncate">{intern.name}</h3>
                         <p className="text-sm opacity-90">{intern.role}</p>
@@ -99,7 +136,7 @@ const InternshipProgram = () => {
                 <SheetContent>
                   <div className="flex flex-col h-full">
                     <div className="flex-1 py-6">
-                      <div className="aspect-square mb-6 rounded-full overflow-hidden">
+                      <div className="aspect-square mb-6 rounded-full overflow-hidden border-4 border-blue-500">
                         <img
                           src={intern.image}
                           alt={intern.name}
@@ -110,10 +147,48 @@ const InternshipProgram = () => {
                       <Badge variant="secondary" className="mb-4">
                         {intern.role}
                       </Badge>
-                      <p className="text-muted-foreground">
-                        Wishing you an enriching learning experience and a successful journey ahead. 
-                        We're excited to have you on board! 🚀
-                      </p>
+                      {intern.bio && (
+                        <p className="text-muted-foreground mb-4">
+                          {intern.bio}
+                        </p>
+                      )}
+                      {intern.skills && (
+                        <div className="mb-6">
+                          <h4 className="text-sm font-semibold mb-2">Skills</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {intern.skills.map((skill, idx) => (
+                              <Badge key={idx} variant="outline">
+                                {skill}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {intern.social && (
+                        <div className="flex gap-4">
+                          {intern.social.github && (
+                            <Button variant="ghost" size="icon" asChild>
+                              <a href={intern.social.github} target="_blank" rel="noopener noreferrer">
+                                <Github className="h-5 w-5" />
+                              </a>
+                            </Button>
+                          )}
+                          {intern.social.linkedin && (
+                            <Button variant="ghost" size="icon" asChild>
+                              <a href={intern.social.linkedin} target="_blank" rel="noopener noreferrer">
+                                <Linkedin className="h-5 w-5" />
+                              </a>
+                            </Button>
+                          )}
+                          {intern.social.twitter && (
+                            <Button variant="ghost" size="icon" asChild>
+                              <a href={intern.social.twitter} target="_blank" rel="noopener noreferrer">
+                                <Twitter className="h-5 w-5" />
+                              </a>
+                            </Button>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </SheetContent>
