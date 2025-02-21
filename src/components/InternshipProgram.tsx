@@ -12,16 +12,45 @@ interface Intern {
 
 const interns: Intern[] = [
   {
-    name: "Nishab Yadav",
-    role: "Junior Digital Content Creator",
-    image: "/lovable-uploads/d2db1f21-7525-4218-b077-f0f5156687f0.png"
+    name: "Sarah Johnson",
+    role: "Full Stack Developer Intern",
+    image: "/lovable-uploads/973600f4-7cb9-4788-bd25-b4cd5fffa9b3.png"
   },
   {
-    name: "Lucky Yadav",
-    role: "Junior Digital Content Creator",
-    image: "/lovable-uploads/a6dc0999-2854-43d4-b5b6-42f46a250f93.png"
+    name: "Michael Chen",
+    role: "UI/UX Design Intern",
+    image: "/lovable-uploads/88959ca4-7d53-4d1a-8f3d-16a3602420fe.png"
   },
-  // ... Add more interns
+  {
+    name: "Emily Rodriguez",
+    role: "Frontend Developer Intern",
+    image: "/lovable-uploads/978b14a0-4204-44d9-a5b5-5ebfebce37c5.png"
+  },
+  {
+    name: "David Kim",
+    role: "Backend Developer Intern",
+    image: "/lovable-uploads/7840f035-5305-4485-92a4-c427e706b893.png"
+  },
+  {
+    name: "Lisa Wang",
+    role: "Mobile App Developer Intern",
+    image: "/lovable-uploads/789d3055-4634-45de-b5e0-3b0faa87358f.png"
+  },
+  {
+    name: "James Wilson",
+    role: "DevOps Engineer Intern",
+    image: "/lovable-uploads/58672377-a9af-4b6c-b08e-4a3eb119fc12.png"
+  },
+  {
+    name: "Anna Martinez",
+    role: "Data Science Intern",
+    image: "/lovable-uploads/3b3fc1a3-9db9-468b-9b6f-a5c2b5c19420.png"
+  },
+  {
+    name: "Tom Anderson",
+    role: "Cloud Computing Intern",
+    image: "/lovable-uploads/303c6b7f-4d31-4b54-8e4e-55fe21719f54.png"
+  }
 ];
 
 const InternshipProgram = () => {
