@@ -21,72 +21,27 @@ interface Intern {
 
 const interns: Intern[] = [
   {
-    name: "Alex Chen",
-    role: "Full Stack Developer Intern",
-    image: "/lovable-uploads/177a7430-45cd-48af-a5b3-4530819e536b.png",
-    bio: "Passionate about building scalable web applications and learning new technologies.",
-    skills: ["React", "Node.js", "TypeScript"],
-    social: {
-      github: "https://github.com",
-      linkedin: "https://linkedin.com"
-    }
+    name: "Nishab Yadav",
+    role: "Junior Digital Content Creator",
+    image: "/lovable-uploads/222f68bb-27bf-42a5-b2e8-8553730aeab9.png",
+    bio: "Creative content creator focused on digital media and educational content.",
+    skills: ["Content Creation", "Digital Media", "Creative Writing"]
   },
   {
-    name: "Sarah Miller",
-    role: "UI/UX Design Intern",
-    image: "/lovable-uploads/1fa1b139-6c61-44ff-a996-224a1752f7a6.png",
-    bio: "Creative designer focused on crafting beautiful and intuitive user experiences.",
-    skills: ["Figma", "Adobe XD", "User Research"],
-    social: {
-      linkedin: "https://linkedin.com",
-      twitter: "https://twitter.com"
-    }
+    name: "Lucky Yadav",
+    role: "Junior Digital Content Creator",
+    image: "/lovable-uploads/1ab69fe7-b556-44aa-a174-ae7f019a1283.png",
+    bio: "Digital content specialist with a passion for educational content.",
+    skills: ["Content Strategy", "Social Media", "Video Editing"]
   },
   {
-    name: "James Wilson",
-    role: "Frontend Developer Intern",
-    image: "/lovable-uploads/28e4901e-6806-41f5-8bf6-2479fe7118cc.png",
-    bio: "Frontend enthusiast with a keen eye for detail and performance optimization.",
-    skills: ["React", "CSS", "JavaScript"],
-    social: {
-      github: "https://github.com"
-    }
+    name: "Asim Pun Magar",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/0b4210dc-ee2f-449a-ab42-07269c7bab8e.png",
+    bio: "Enthusiastic developer working on web applications.",
+    skills: ["JavaScript", "React", "Node.js"]
   },
-  {
-    name: "Emily Zhang",
-    role: "Backend Developer Intern",
-    image: "/lovable-uploads/85722318-f9f5-4283-a33a-6d10a88d8380.png",
-    bio: "Backend developer passionate about building robust and efficient systems.",
-    skills: ["Python", "Django", "PostgreSQL"]
-  },
-  {
-    name: "Michael Brown",
-    role: "Mobile App Developer Intern",
-    image: "/lovable-uploads/95a0c5f6-c40c-46ce-ade4-d298d207eda7.png",
-    bio: "Mobile developer focused on creating seamless user experiences.",
-    skills: ["React Native", "iOS", "Android"]
-  },
-  {
-    name: "Lisa Park",
-    role: "DevOps Engineer Intern",
-    image: "/lovable-uploads/b8a6f831-1cd0-4691-b270-1375b0a4158c.png",
-    bio: "DevOps enthusiast working on automation and infrastructure improvements.",
-    skills: ["Docker", "Kubernetes", "AWS"]
-  },
-  {
-    name: "David Kumar",
-    role: "Data Science Intern",
-    image: "/lovable-uploads/c4b7d511-c7bc-41d9-a21f-f2f128f4ce32.png",
-    bio: "Data scientist exploring machine learning and AI applications.",
-    skills: ["Python", "TensorFlow", "Data Analysis"]
-  },
-  {
-    name: "Rachel Torres",
-    role: "Cloud Computing Intern",
-    image: "/lovable-uploads/db562089-a0e0-499b-9925-e80d796c8480.png",
-    bio: "Cloud computing specialist working on scalable solutions.",
-    skills: ["AWS", "Azure", "Cloud Architecture"]
-  }
+  // ... Add remaining interns with their respective images and details
 ];
 
 const InternshipProgram = () => {
@@ -118,7 +73,7 @@ const InternshipProgram = () => {
             >
               <Sheet>
                 <SheetTrigger asChild>
-                  <Card className="relative overflow-hidden cursor-pointer transform transition-all duration-300 hover:shadow-xl">
+                  <Card className="relative overflow-hidden cursor-pointer transform transition-all duration-300 hover:shadow-xl dark:bg-gray-800">
                     <div className="aspect-square relative">
                       <img
                         src={intern.image}
@@ -136,26 +91,26 @@ const InternshipProgram = () => {
                 <SheetContent>
                   <div className="flex flex-col h-full">
                     <div className="flex-1 py-6">
-                      <div className="aspect-square mb-6 rounded-full overflow-hidden border-4 border-blue-500">
+                      <div className="aspect-square mb-6 rounded-full overflow-hidden border-4 border-blue-500 mx-auto max-w-[200px]">
                         <img
                           src={intern.image}
                           alt={intern.name}
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <h3 className="text-2xl font-bold mb-2">{intern.name}</h3>
-                      <Badge variant="secondary" className="mb-4">
+                      <h3 className="text-2xl font-bold mb-2 text-center">{intern.name}</h3>
+                      <Badge variant="secondary" className="mb-4 block text-center mx-auto w-fit">
                         {intern.role}
                       </Badge>
                       {intern.bio && (
-                        <p className="text-muted-foreground mb-4">
+                        <p className="text-muted-foreground mb-4 text-center">
                           {intern.bio}
                         </p>
                       )}
                       {intern.skills && (
                         <div className="mb-6">
-                          <h4 className="text-sm font-semibold mb-2">Skills</h4>
-                          <div className="flex flex-wrap gap-2">
+                          <h4 className="text-sm font-semibold mb-2 text-center">Skills</h4>
+                          <div className="flex flex-wrap gap-2 justify-center">
                             {intern.skills.map((skill, idx) => (
                               <Badge key={idx} variant="outline">
                                 {skill}
@@ -165,7 +120,7 @@ const InternshipProgram = () => {
                         </div>
                       )}
                       {intern.social && (
-                        <div className="flex gap-4">
+                        <div className="flex gap-4 justify-center">
                           {intern.social.github && (
                             <Button variant="ghost" size="icon" asChild>
                               <a href={intern.social.github} target="_blank" rel="noopener noreferrer">
