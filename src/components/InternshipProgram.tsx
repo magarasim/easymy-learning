@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
@@ -41,7 +40,125 @@ const interns: Intern[] = [
     bio: "Enthusiastic developer working on web applications.",
     skills: ["JavaScript", "React", "Node.js"]
   },
-  // ... Add remaining interns with their respective images and details
+  {
+    name: "Arpana Rimal",
+    role: "Digital Content Creator",
+    image: "/lovable-uploads/177a7430-45cd-48af-a5b3-4530819e536b.png",
+    bio: "Creative professional specializing in digital content creation.",
+    skills: ["Content Strategy", "Digital Marketing", "Social Media"]
+  },
+  {
+    name: "Bipana Sharma",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/28e4901e-6806-41f5-8bf6-2479fe7118cc.png",
+    bio: "Passionate developer focused on building innovative solutions.",
+    skills: ["Python", "Django", "React"]
+  },
+  {
+    name: "Khagendra Badu",
+    role: "Graphics Designer",
+    image: "/lovable-uploads/303c6b7f-4d31-4b54-8e4e-55fe21719f54.png",
+    bio: "Creative designer with expertise in visual communication.",
+    skills: ["Adobe Suite", "UI Design", "Brand Identity"]
+  },
+  {
+    name: "Mandeep Thapa",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/3b3fc1a3-9db9-468b-9b6f-a5c2b5c19420.png",
+    bio: "Full-stack developer with a focus on user experience.",
+    skills: ["JavaScript", "Node.js", "MongoDB"]
+  },
+  {
+    name: "Pradip Bhatt",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/58672377-a9af-4b6c-b08e-4a3eb119fc12.png",
+    bio: "Backend specialist developing robust server solutions.",
+    skills: ["Java", "Spring Boot", "MySQL"]
+  },
+  {
+    name: "Prakash Bhatta",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/7840f035-5305-4485-92a4-c427e706b893.png",
+    bio: "Frontend developer creating engaging user interfaces.",
+    skills: ["React", "TypeScript", "CSS"]
+  },
+  {
+    name: "Prakash Poudel",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/789d3055-4634-45de-b5e0-3b0faa87358f.png",
+    bio: "Full-stack developer with a passion for clean code.",
+    skills: ["JavaScript", "Python", "PostgreSQL"]
+  },
+  {
+    name: "Prashant Ghimire",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/7dae9b03-684c-41e4-bbc0-c8657dad5097.png",
+    bio: "Software engineer focused on scalable solutions.",
+    skills: ["Java", "Spring", "React"]
+  },
+  {
+    name: "Rabi Ranjan",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/85722318-f9f5-4283-a33a-6d10a88d8380.png",
+    bio: "Developer specializing in cloud-native applications.",
+    skills: ["AWS", "Docker", "Node.js"]
+  },
+  {
+    name: "Rabindra Shah",
+    role: "Graphics Designer",
+    image: "/lovable-uploads/88959ca4-7d53-4d1a-8f3d-16a3602420fe.png",
+    bio: "Creative designer with a keen eye for detail.",
+    skills: ["Photoshop", "Illustrator", "Motion Graphics"]
+  },
+  {
+    name: "Rajendra Chaudhary",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/95a0c5f6-c40c-46ce-ade4-d298d207eda7.png",
+    bio: "Developer focused on mobile and web applications.",
+    skills: ["React Native", "React", "Node.js"]
+  },
+  {
+    name: "Ravi Panday",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/973600f4-7cb9-4788-bd25-b4cd5fffa9b3.png",
+    bio: "Full-stack developer with DevOps experience.",
+    skills: ["Python", "Docker", "Jenkins"]
+  },
+  {
+    name: "Sakar Poudel",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/978b14a0-4204-44d9-a5b5-5ebfebce37c5.png",
+    bio: "Developer specializing in frontend technologies.",
+    skills: ["React", "Vue.js", "CSS"]
+  },
+  {
+    name: "Sandeep Timalsina",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/a6dc0999-2854-43d4-b5b6-42f46a250f93.png",
+    bio: "Backend developer focused on system architecture.",
+    skills: ["Java", "Microservices", "MongoDB"]
+  },
+  {
+    name: "Sanjay Mahato",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/b8a6f831-1cd0-4691-b270-1375b0a4158c.png",
+    bio: "Full-stack developer with AI/ML interests.",
+    skills: ["Python", "TensorFlow", "React"]
+  },
+  {
+    name: "Santosh Neupane",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/c1419d13-0027-4219-980c-d0be45b7ebc3.png",
+    bio: "Developer specializing in web security.",
+    skills: ["Security", "Node.js", "PHP"]
+  },
+  {
+    name: "Shiva Raj",
+    role: "Junior Software Developer",
+    image: "/lovable-uploads/c4b7d511-c7bc-41d9-a21f-f2f128f4ce32.png",
+    bio: "Full-stack developer with cloud expertise.",
+    skills: ["AWS", "Node.js", "React"]
+  }
 ];
 
 const InternshipProgram = () => {
