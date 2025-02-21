@@ -1,9 +1,10 @@
+
 import { motion } from "framer-motion";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, Twitter, MessageSquare } from "lucide-react";
 
 interface Intern {
   name: string;
@@ -162,6 +163,10 @@ const interns: Intern[] = [
 ];
 
 const InternshipProgram = () => {
+  const handleWhatsAppJoin = () => {
+    window.open('https://chat.whatsapp.com/IeouklwfjxTBkq8k1SLRsY', '_blank');
+  };
+
   return (
     <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-blue-900">
       <div className="container mx-auto px-4">
@@ -174,9 +179,16 @@ const InternshipProgram = () => {
           <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Meet Our Talented Interns
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
             Our diverse team of interns brings fresh perspectives and innovative ideas to our projects
           </p>
+          <Button 
+            onClick={handleWhatsAppJoin}
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center gap-2 mx-auto"
+          >
+            <MessageSquare className="w-5 h-5" />
+            Join WhatsApp Group
+          </Button>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -190,14 +202,15 @@ const InternshipProgram = () => {
             >
               <Sheet>
                 <SheetTrigger asChild>
-                  <Card className="relative overflow-hidden cursor-pointer transform transition-all duration-300 hover:shadow-xl dark:bg-gray-800">
+                  <Card className="relative overflow-hidden cursor-pointer transform transition-all duration-300 hover:shadow-2xl dark:bg-gray-800/90 backdrop-blur-sm">
                     <div className="aspect-square relative">
                       <img
                         src={intern.image}
                         alt={intern.name}
-                        className="w-full h-full object-cover rounded-t-lg"
+                        className="w-full h-full object-cover rounded-t-lg transition-transform duration-300 hover:scale-105"
+                        loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
                       <div className="absolute bottom-4 left-4 right-4 text-white">
                         <h3 className="text-lg font-semibold truncate">{intern.name}</h3>
                         <p className="text-sm opacity-90">{intern.role}</p>
@@ -205,22 +218,25 @@ const InternshipProgram = () => {
                     </div>
                   </Card>
                 </SheetTrigger>
-                <SheetContent>
+                <SheetContent className="overflow-y-auto">
                   <div className="flex flex-col h-full">
                     <div className="flex-1 py-6">
-                      <div className="aspect-square mb-6 rounded-full overflow-hidden border-4 border-blue-500 mx-auto max-w-[200px]">
+                      <div className="aspect-square mb-6 rounded-full overflow-hidden border-4 border-blue-500 mx-auto max-w-[200px] shadow-xl transform hover:scale-105 transition-transform duration-300">
                         <img
                           src={intern.image}
                           alt={intern.name}
                           className="w-full h-full object-cover"
+                          loading="lazy"
                         />
                       </div>
-                      <h3 className="text-2xl font-bold mb-2 text-center">{intern.name}</h3>
+                      <h3 className="text-2xl font-bold mb-2 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        {intern.name}
+                      </h3>
                       <Badge variant="secondary" className="mb-4 block text-center mx-auto w-fit">
                         {intern.role}
                       </Badge>
                       {intern.bio && (
-                        <p className="text-muted-foreground mb-4 text-center">
+                        <p className="text-muted-foreground mb-4 text-center px-4">
                           {intern.bio}
                         </p>
                       )}
@@ -229,38 +245,52 @@ const InternshipProgram = () => {
                           <h4 className="text-sm font-semibold mb-2 text-center">Skills</h4>
                           <div className="flex flex-wrap gap-2 justify-center">
                             {intern.skills.map((skill, idx) => (
-                              <Badge key={idx} variant="outline">
+                              <Badge 
+                                key={idx} 
+                                variant="outline"
+                                className="animate-fade-in-up"
+                                style={{ animationDelay: `${idx * 100}ms` }}
+                              >
                                 {skill}
                               </Badge>
                             ))}
                           </div>
                         </div>
                       )}
-                      {intern.social && (
-                        <div className="flex gap-4 justify-center">
-                          {intern.social.github && (
-                            <Button variant="ghost" size="icon" asChild>
-                              <a href={intern.social.github} target="_blank" rel="noopener noreferrer">
-                                <Github className="h-5 w-5" />
-                              </a>
-                            </Button>
-                          )}
-                          {intern.social.linkedin && (
-                            <Button variant="ghost" size="icon" asChild>
-                              <a href={intern.social.linkedin} target="_blank" rel="noopener noreferrer">
-                                <Linkedin className="h-5 w-5" />
-                              </a>
-                            </Button>
-                          )}
-                          {intern.social.twitter && (
-                            <Button variant="ghost" size="icon" asChild>
-                              <a href={intern.social.twitter} target="_blank" rel="noopener noreferrer">
-                                <Twitter className="h-5 w-5" />
-                              </a>
-                            </Button>
-                          )}
-                        </div>
-                      )}
+                      <div className="flex flex-col gap-4 items-center">
+                        <Button 
+                          onClick={handleWhatsAppJoin}
+                          className="bg-green-500 hover:bg-green-600 text-white w-full max-w-xs flex items-center justify-center gap-2"
+                        >
+                          <MessageSquare className="w-4 h-4" />
+                          Connect on WhatsApp
+                        </Button>
+                        {intern.social && (
+                          <div className="flex gap-4 justify-center">
+                            {intern.social.github && (
+                              <Button variant="ghost" size="icon" asChild>
+                                <a href={intern.social.github} target="_blank" rel="noopener noreferrer">
+                                  <Github className="h-5 w-5" />
+                                </a>
+                              </Button>
+                            )}
+                            {intern.social.linkedin && (
+                              <Button variant="ghost" size="icon" asChild>
+                                <a href={intern.social.linkedin} target="_blank" rel="noopener noreferrer">
+                                  <Linkedin className="h-5 w-5" />
+                                </a>
+                              </Button>
+                            )}
+                            {intern.social.twitter && (
+                              <Button variant="ghost" size="icon" asChild>
+                                <a href={intern.social.twitter} target="_blank" rel="noopener noreferrer">
+                                  <Twitter className="h-5 w-5" />
+                                </a>
+                              </Button>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </SheetContent>
