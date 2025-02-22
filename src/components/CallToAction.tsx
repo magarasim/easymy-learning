@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, Youtube, QrCode } from "lucide-react";
 import {
@@ -145,7 +146,7 @@ const CallToAction = () => {
                 </div>
                 <div className="text-center">
                   <a 
-                    href="https://wa.me/+9779863312602"
+                    href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-500 hover:text-blue-700 transition-colors"
