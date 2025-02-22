@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { MessageSquare } from "lucide-react";
 
 const FloatingActions = () => {
+  const whatsappLink = 'https://chat.whatsapp.com/IeouklwfjxTBkq8k1SLRsY';
+
   const handleJoinWhatsApp = () => {
-    window.open('https://wa.me/+9779863312602', '_blank');
+    window.open(whatsappLink, '_blank');
   };
 
   return (

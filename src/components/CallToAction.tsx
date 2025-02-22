@@ -11,6 +11,12 @@ import {
 import { motion } from "framer-motion";
 
 const CallToAction = () => {
+  const whatsappLink = 'https://chat.whatsapp.com/IeouklwfjxTBkq8k1SLRsY';
+
+  const handleWhatsAppJoin = () => {
+    window.open(whatsappLink, '_blank');
+  };
+
   const socialLinks = [
     {
       platform: "Email",

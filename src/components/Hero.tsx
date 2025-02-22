@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/dialog";
 
 const Hero = () => {
+  const whatsappLink = 'https://chat.whatsapp.com/IeouklwfjxTBkq8k1SLRsY';
+  
   const handleWhatsAppJoin = () => {
-    window.open('https://wa.me/+9779863312602', '_blank');
+    window.open(whatsappLink, '_blank');
   };
 
   const phoneNumbers = [
