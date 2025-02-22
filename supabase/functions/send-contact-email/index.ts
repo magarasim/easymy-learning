@@ -1,3 +1,4 @@
+
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
 
@@ -26,35 +27,42 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation email to the user
     const userEmailResponse = await resend.emails.send({
-      from: "EasyMyLearning <onboarding@resend.dev>",
+      from: "EasyMy Learning <onboarding@resend.dev>",
       to: [email],
       subject: "We received your message!",
       html: `
-        <h1>Thank you for contacting us, ${name}!</h1>
-        <p>We have received your message and will get back to you as soon as possible.</p>
-        <p>Your message:</p>
-        <p>${message}</p>
-        <p>Best regards,<br>The EasyMyLearning Team</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h1 style="color: #2563eb;">Thank you for contacting us, ${name}!</h1>
+          <p>We have received your message and will get back to you as soon as possible.</p>
+          <p>Your message:</p>
+          <blockquote style="border-left: 4px solid #2563eb; padding-left: 1rem; margin: 1rem 0;">
+            ${message}
+          </blockquote>
+          <p>Best regards,<br>The EasyMy Learning Team</p>
+        </div>
       `,
     });
 
     // Send notification email to admin
     const adminEmailResponse = await resend.emails.send({
-      from: "EasyMyLearning <onboarding@resend.dev>",
+      from: "Contact Form <onboarding@resend.dev>",
       to: ["info@easymylearning.com"],
       subject: "New Contact Form Submission",
       html: `
-        <h1>New Contact Form Submission</h1>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h1 style="color: #2563eb;">New Contact Form Submission</h1>
+          <p><strong>From:</strong> ${name} (${email})</p>
+          <p><strong>Message:</strong></p>
+          <blockquote style="border-left: 4px solid #2563eb; padding-left: 1rem; margin: 1rem 0;">
+            ${message}
+          </blockquote>
+        </div>
       `,
     });
 
     console.log("Emails sent successfully:", { userEmailResponse, adminEmailResponse });
 
-    return new Response(JSON.stringify({ success: true }), {
+    return new Response(JSON.stringify({ userEmailResponse, adminEmailResponse }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",

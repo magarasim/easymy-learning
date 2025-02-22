@@ -1,3 +1,4 @@
+
 import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -29,8 +30,8 @@ const Contact = () => {
       if (error) throw error;
 
       toast({
-        title: "Message Sent",
-        description: "We'll get back to you as soon as possible!",
+        title: "Message Sent Successfully!",
+        description: "We'll get back to you as soon as possible.",
       });
 
       // Reset form
@@ -39,8 +40,8 @@ const Contact = () => {
       console.error('Error sending message:', error);
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to send message. Please try again later.",
+        title: "Error Sending Message",
+        description: "Please try again later or contact us directly via phone.",
       });
     } finally {
       setIsLoading(false);
@@ -98,11 +99,22 @@ const Contact = () => {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">Name</label>
-                  <Input name="name" placeholder="Your name" required />
+                  <Input 
+                    name="name" 
+                    placeholder="Your name" 
+                    required 
+                    disabled={isLoading}
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Email</label>
-                  <Input name="email" type="email" placeholder="your@email.com" required />
+                  <Input 
+                    name="email" 
+                    type="email" 
+                    placeholder="your@email.com" 
+                    required 
+                    disabled={isLoading}
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Message</label>
@@ -111,9 +123,14 @@ const Contact = () => {
                     placeholder="How can we help you?"
                     className="min-h-[150px]"
                     required
+                    disabled={isLoading}
                   />
                 </div>
-                <Button type="submit" className="w-full" disabled={isLoading}>
+                <Button 
+                  type="submit" 
+                  className="w-full" 
+                  disabled={isLoading}
+                >
                   {isLoading ? "Sending..." : "Send Message"}
                 </Button>
               </div>
