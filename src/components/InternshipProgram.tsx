@@ -163,126 +163,180 @@ const interns: Intern[] = [
 ];
 
 const InternshipProgram = () => {
+  const whatsappLink = 'https://chat.whatsapp.com/IeouklwfjxTBkq8k1SLRsY';
+  
   const handleWhatsAppJoin = () => {
-    window.open('https://chat.whatsapp.com/IeouklwfjxTBkq8k1SLRsY', '_blank');
+    window.open(whatsappLink, '_blank');
   };
 
   return (
-    <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-blue-900">
+    <section className="py-16 min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 transition-all duration-500">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
             Meet Our Talented Interns
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
             Our diverse team of interns brings fresh perspectives and innovative ideas to our projects
           </p>
-          <Button 
-            onClick={handleWhatsAppJoin}
-            className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center gap-2 mx-auto"
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <MessageSquare className="w-5 h-5" />
-            Join WhatsApp Group
-          </Button>
+            <Button 
+              onClick={handleWhatsAppJoin}
+              className="bg-green-500 hover:bg-green-600 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto text-lg"
+            >
+              <MessageSquare className="w-6 h-6" />
+              Join Our WhatsApp Community
+            </Button>
+          </motion.div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           {interns.map((intern, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -8, transition: { duration: 0.2 } }}
             >
               <Sheet>
                 <SheetTrigger asChild>
-                  <Card className="relative overflow-hidden cursor-pointer transform transition-all duration-300 hover:shadow-2xl dark:bg-gray-800/90 backdrop-blur-sm">
+                  <Card className="relative overflow-hidden cursor-pointer transform transition-all duration-300 hover:shadow-2xl dark:bg-gray-800/90 backdrop-blur-sm border-2 hover:border-blue-500">
                     <div className="aspect-square relative">
-                      <img
+                      <motion.img
                         src={intern.image}
                         alt={intern.name}
-                        className="w-full h-full object-cover rounded-t-lg transition-transform duration-300 hover:scale-105"
+                        className="w-full h-full object-cover rounded-t-lg"
                         loading="lazy"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.3 }}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-80" />
                       <div className="absolute bottom-4 left-4 right-4 text-white">
-                        <h3 className="text-lg font-semibold truncate">{intern.name}</h3>
-                        <p className="text-sm opacity-90">{intern.role}</p>
+                        <h3 className="text-xl font-semibold mb-1 truncate">{intern.name}</h3>
+                        <p className="text-sm opacity-90 text-blue-100">{intern.role}</p>
                       </div>
                     </div>
                   </Card>
                 </SheetTrigger>
-                <SheetContent className="overflow-y-auto">
-                  <div className="flex flex-col h-full">
+                <SheetContent className="overflow-y-auto bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-blue-900">
+                  <motion.div 
+                    className="flex flex-col h-full"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                  >
                     <div className="flex-1 py-6">
-                      <div className="aspect-square mb-6 rounded-full overflow-hidden border-4 border-blue-500 mx-auto max-w-[200px] shadow-xl transform hover:scale-105 transition-transform duration-300">
+                      <motion.div 
+                        className="aspect-square mb-6 rounded-full overflow-hidden border-4 border-blue-500 mx-auto max-w-[200px] shadow-xl"
+                        whileHover={{ scale: 1.05, rotate: 5 }}
+                        transition={{ duration: 0.3 }}
+                      >
                         <img
                           src={intern.image}
                           alt={intern.name}
                           className="w-full h-full object-cover"
                           loading="lazy"
                         />
-                      </div>
-                      <h3 className="text-2xl font-bold mb-2 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                      </motion.div>
+                      <motion.h3 
+                        className="text-2xl font-bold mb-2 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.2 }}
+                      >
                         {intern.name}
-                      </h3>
-                      <Badge variant="secondary" className="mb-4 block text-center mx-auto w-fit">
-                        {intern.role}
-                      </Badge>
+                      </motion.h3>
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                      >
+                        <Badge variant="secondary" className="mb-4 block text-center mx-auto w-fit">
+                          {intern.role}
+                        </Badge>
+                      </motion.div>
                       {intern.bio && (
-                        <p className="text-muted-foreground mb-4 text-center px-4">
+                        <motion.p 
+                          className="text-muted-foreground mb-4 text-center px-4"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.4 }}
+                        >
                           {intern.bio}
-                        </p>
+                        </motion.p>
                       )}
                       {intern.skills && (
-                        <div className="mb-6">
+                        <motion.div 
+                          className="mb-6"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.5 }}
+                        >
                           <h4 className="text-sm font-semibold mb-2 text-center">Skills</h4>
                           <div className="flex flex-wrap gap-2 justify-center">
                             {intern.skills.map((skill, idx) => (
-                              <Badge 
-                                key={idx} 
-                                variant="outline"
-                                className="animate-fade-in-up"
-                                style={{ animationDelay: `${idx * 100}ms` }}
+                              <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.6 + idx * 0.1 }}
                               >
-                                {skill}
-                              </Badge>
+                                <Badge 
+                                  variant="outline"
+                                  className="hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors duration-300"
+                                >
+                                  {skill}
+                                </Badge>
+                              </motion.div>
                             ))}
                           </div>
-                        </div>
+                        </motion.div>
                       )}
-                      <div className="flex flex-col gap-4 items-center">
+                      <motion.div 
+                        className="flex flex-col gap-4 items-center"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.7 }}
+                      >
                         <Button 
                           onClick={handleWhatsAppJoin}
-                          className="bg-green-500 hover:bg-green-600 text-white w-full max-w-xs flex items-center justify-center gap-2"
+                          className="bg-green-500 hover:bg-green-600 text-white w-full max-w-xs flex items-center justify-center gap-2 transform transition-all duration-300 hover:scale-105"
                         >
-                          <MessageSquare className="w-4 h-4" />
+                          <MessageSquare className="w-5 h-5" />
                           Connect on WhatsApp
                         </Button>
                         {intern.social && (
                           <div className="flex gap-4 justify-center">
                             {intern.social.github && (
-                              <Button variant="ghost" size="icon" asChild>
+                              <Button variant="ghost" size="icon" asChild className="hover:scale-110 transition-transform">
                                 <a href={intern.social.github} target="_blank" rel="noopener noreferrer">
                                   <Github className="h-5 w-5" />
                                 </a>
                               </Button>
                             )}
                             {intern.social.linkedin && (
-                              <Button variant="ghost" size="icon" asChild>
+                              <Button variant="ghost" size="icon" asChild className="hover:scale-110 transition-transform">
                                 <a href={intern.social.linkedin} target="_blank" rel="noopener noreferrer">
                                   <Linkedin className="h-5 w-5" />
                                 </a>
                               </Button>
                             )}
                             {intern.social.twitter && (
-                              <Button variant="ghost" size="icon" asChild>
+                              <Button variant="ghost" size="icon" asChild className="hover:scale-110 transition-transform">
                                 <a href={intern.social.twitter} target="_blank" rel="noopener noreferrer">
                                   <Twitter className="h-5 w-5" />
                                 </a>
@@ -290,14 +344,14 @@ const InternshipProgram = () => {
                             )}
                           </div>
                         )}
-                      </div>
+                      </motion.div>
                     </div>
-                  </div>
+                  </motion.div>
                 </SheetContent>
               </Sheet>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
